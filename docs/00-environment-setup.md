@@ -12,7 +12,7 @@ The procedures in this workshop use multiple Lambda functions, EC2 instances, an
 
 ## Download the workshop assets from GitHub
 
-1. Navigate to https://github.com/aws-samples/aws-security-hub-workshop/deploy
+1. Navigate to https://github.com/aws-samples/aws-security-hub-workshop/blob/master/deploy/aws-security-hub-workshop-deploy.zip
 
 2. Click **Download** to download the **aws-security-hub-workshop-deploy.zip** file to your local computer in a location that you can easily find.
 

@@ -29,15 +29,16 @@ Multiple AWS services will be configured in the workshop to help faciliate the g
 
 
 ## Presentation deck
-[Workshop Presentation Deck](./security-hub-workshop.pdf)
+Coming Soon.
 
 ## Region
 Please use eu-north-1, ap-south-1, eu-west-2, eu-west-1, ap-northeast-2, ap-northeast-1, ap-southeast-2, eu-central-1, us-east-1, us-east-2, us-west-1, or us-west-2.
 
 ## Modules
 
-This workshop is broken up into the four modules below: 
+This workshop is broken up into setup and then four modules: 
 
+0. [Initial Environment Setup ](./00-environment-setup.md)
 1. [Security Hub Walk Through ](./01-security-hub-walk-through.md)
 2. [Custom Insights and Custom Findings](./02-custom-insights-findings.md) 
 3. [Remediation and Response Custom Action](./03-remediation-and-response.md) 

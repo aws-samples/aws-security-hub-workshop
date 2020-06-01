@@ -46,7 +46,7 @@ markdown_extensions:
 nav:
   - Overview: 'index.md'
   - 'Module 0: Environment Build': '00-environment-setup.md'
-  - 'Mobule 1: Security Hub Walkthrough' : '01-security-hub-walk-through.md'
+  - 'Module 1: Security Hub Walkthrough': '01-security-hub-walk-through.md'
   - 'Module 2: Custom Insights & Findings': '02-custom-insights-findings.md'
   - 'Module 3: Remediation & Response': '03-remediation-and-response.md'
   - 'Module 4: Enrichment & Integration': '04-enrichment-and-integration.md'
