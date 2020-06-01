@@ -1,0 +1,55 @@
+policies:
+  - name: s3-bucket-encryption-policy-absent
+    resource: s3
+    description: s3 buckets without encryption required 
+    filters:
+      - type: no-encryption-statement
+    actions:
+      - type: post-finding
+        severity_normalized: 60
+        types:
+          - "Software and Configuration Checks/AWS Security Best Practices"
+  - name: vpc-flow-log-check
+    resource: vpc
+    filters:
+      - not:
+           - type: flow-logs
+             enabled: true
+             set-op: or
+             op: equal
+             traffic-type: all
+             log-group: myVPCFlowLogs
+             status: active
+    actions:
+      - type: post-finding
+        severity_normalized: 30
+        types:
+          - "Software and Configuration Checks/AWS Security Best Practices"
+  - name: ec2-invalid-ami
+    resource: ec2
+    comment: |
+      Find all running EC2 instances that are using invalid AMIs and stop them
+    filters:
+    - "State.Name": running
+    - type: value
+      key: ImageId
+      op: in
+      value:
+          - ami-b66ed3de # Invalid
+    actions:
+      - type: post-finding
+        severity_normalized: 90
+        types:
+          - "Software and Configuration Checks/AWS Security Best Practices"
+  - name: ebs-mark-unattached-deletion
+    resource: ebs
+    comments: |
+      Finds any unattached EBS Volumes that are not encrypted
+    filters:
+    - Attachments: []
+    - Encrypted: false
+    actions:
+      - type: post-finding
+        severity_normalized: 70
+        types:
+          - "Software and Configuration Checks/AWS Security Best Practices"

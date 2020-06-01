@@ -1,14 +1,13 @@
-## My Project
+## AWS Security Hub Workshop
 
-TODO: Fill this README out!
+AWS Security Hub allows you to centrally view and manage security alerts and automate security checks across AWS accounts. This workshop provides hands on experience with the full functionality that Security Hub provides. Your workshop starts with a guided tour of the Security Hub UI and its features. Next, you will integrate security findings from AWS services, learn how to integrate 3rd party security findings for your AWS environment, and build out your own custom security finding integration. Finally, you will respond to the security findings in your environment by taking action via manual and automated response techniques.
 
-Be sure to:
 
-* Change the title in this README
-* Edit your repository description on GitHub
+## Start the workshop: 
+
+Visit the site to get started:  TBD
 
 ## License Summary
 
-The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License. See the LICENSE file.
+This sample code is made available under a modified MIT license.  See the LICENSE file.
 
-The sample code within this documentation is made available under the MIT-0 license. See the LICENSE-SAMPLECODE file.

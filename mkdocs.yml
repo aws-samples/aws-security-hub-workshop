@@ -1,0 +1,54 @@
+# Project information
+
+site_name: Integration, Prioritization, and Response with AWS Security Hub
+site_short_name: Security Hub Workshop
+site_description: 'AWS Security Hub allows you to centrally view and manage security alerts and automate security checks across AWS accounts. This workshop provides hands on experience with the full functionality that Security Hub provides. Your workshop starts with a guided tour of the Security Hub UI and its features. Next, you will integrate security findings from AWS services, learn how to integrate 3rd party security findings for your AWS environment, and build out your own custom security finding integration. Finally, you will respond to the security findings in your environment by taking action via manual and automated response techniques.'
+site_author: 'aws-security-workshops@amazon.com'
+site_url: 'https://aws-security-hub-workshop.awssecworkshops.com/'
+
+# Repository
+repo_name: 'aws-samples/aws-security-hub-workshop'
+repo_url: 'https://github.com/aws-samples/security-hub-workshop/'
+
+# Copyright
+copyright: '&copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
+
+# Configuration
+theme:
+  name: 'material'
+  #logo: 'assets/images/aws_smile_logo.png'
+  #favicon: 'assets/images/aws-favicon.ico'
+  feature:
+    tabs: true
+  custom_dir: 'docs/theme'
+
+# Customization
+extra_css:
+  - 'stylesheets/custom.css'
+extra:
+  social:
+    - type: 'home'
+      link: 'https://awssecworkshops.com'
+    - type: 'shield'
+      link: 'https://aws.amazon.com/security/'
+    - type: 'twitter'
+      link: 'https://twitter.com/awssecurityinfo?lang=en'
+    - type: 'rss'
+      link: 'https://aws.amazon.com/blogs/security/'
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.details
+
+# Navigation
+nav:
+  - Overview: 'index.md'
+  - 'Module 0: Environment Build': '00-environment-setup.md'
+  - 'Mobule 1: Security Hub Walkthrough' : '01-security-hub-walk-through.md'
+  - 'Module 2: Custom Insights & Findings': '02-custom-insights-findings.md'
+  - 'Module 3: Remediation & Response': '03-remediation-and-response.md'
+  - 'Module 4: Enrichment & Integration': '04-enrichment-and-integration.md'
+  - Contributing: 'contribute.md'
+  - License: 'license.md'
