@@ -10,11 +10,11 @@ In this module you will explore two patterns to respond to findings via a notifi
 
 ## Custom Action to Send Findings to Slack
 
-In this section we will setup a custom action that will send the details of a Security Hub Finding to an SNS topic that AWS Chatbot will format and then post into our demo Slack security channel.  A more automated workflow could also be created where all, or a filtered set of, Security Hub findings could be sent to slack.  You can read more about that options <a href="https://docs.aws.amazon.com/chatbot/latest/adminguide/related-services.html" target="_blank">here</a>. 
+In this section we will setup a custom action that will send the details of a Security Hub Finding to a lambda function that will format the message and then post into our demo Slack security channel.  A more automated workflow could also be created where all, or a filtered set of, Security Hub findings could be sent to slack.  
 
 Once the setup is complete, the finding data will flow from left to right in the below diagram. However, the setup steps themselves must be completed in the numbered order to accommodate required dependencies. 
 
-![ChatOps](./images/04-chatops-diagram.png)
+![ChatOps](./images/04-slack-integration-diagram.png)
 
 ### Setup Slack 
 
@@ -54,23 +54,8 @@ To send information on findings that are in Security Hub to Slack a custom actio
 
 ![ChatOps](./images/04-chatops-sechub-create.png)
 
-### Create an SNS Topic for Security Hub findings to publish to and AWS Chatbot to Subscribe to
 
-1.	Go to Amazon SNS : https://console.aws.amazon.com/sns/v3/
-
-2.	Click Topics in the left navigation, and then **Create Topic**.
-
-![ChatOps](./images/04-chatops-sns.png)
-
-3.	Name the topic: **security-hub-finding-topic**
-
-4.	Provide the display name: Security Hub Finding Topic.
-
-5.  click **Create**.
-
-![ChatOps](./images/04-chatops-sns-complete.png)
-
-### Create a EventBridge Rule for Security Hub Custom Actions to SNS
+### Create a EventBridge Rule for Security Hub Custom Actions to Lambda
 
 Taking action on a finding in Security Hub results in the information for the finding and the ARN of the custom action being sent to EventBridge. To successfully process this action, a EventBridge rule  needs to be defined so the action information can be sent to Slack. 
 
@@ -122,39 +107,14 @@ Copy and paste in the custom event pattern below.  Use the ARN you recorded for 
 
 ![ChatOps](./images/04-chatops-create-event-pattern-updated.png)
 
-11. Under Select targets, select **SNS Topic**.
+11. Under Select targets, select **Lambda function**.
 
-12. Then select **security-hub-finding-topic** lambda function. 
+12. Then select the **sechub-to-slack** lambda function. 
 
-![Custom Action](./images/04-chatops-create-confirm.png)
+![Custom Action](./images/04-slack-lambda-create-confirm.png)
 
 13. Click **Create**.
 
-### Enable AWS Chatbot
-
-1. Go to AWS Chatbot Console: https://console.aws.amazon.com/chatbot/
-
-2. On the right side of the page select **Slack** and click **Configure Client**.
-
-![ChatOps](./images/04-chatops-chatbot-enable.png)
-
-3. Review the needed permissions and choose **Allow** to enable AWS Chatbot to post messages in your Slack channel. 
-
-4. Click **Configure new channel**.
-
-5. Add a **Configuration name** of **sechub-channel-configuration**.
-
-6. Leave Channel type as **Public** and click in the box below to choose the channel you setup in Slack to receive Security Hub Findings.
-
-![ChatOps](./images/04-chatops-slack-configure.png)
-
-5.	Add a descriptive IAM Role Name, such as **AWSChatbot-Role**.
-
-6.	In the Notifications section select **your current region** and SNS Topic - **security-hub-finding-topic**.
-
-![ChatOps](./images/04-chatops-slack-configure-sns.png)
-
-7. Click **Configure**. 
 
 ### Testing the Integration between Security Hub and Slack  
 
