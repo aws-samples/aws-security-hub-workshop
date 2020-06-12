@@ -60,9 +60,8 @@
                         "Action": "kms:*",
                         "Resource": "*",
                         "Condition": {
-                            "StringLike": {
-                              "aws:PrincipalArn": 
-                                {"Fn::Join" : [ "", [ "*", { "Ref" : "AWS::AccountId" }, "*" ] ]}
+                            "StringEquals": {
+                                "kms:CallerAccount": { "Ref" : "AWS::AccountId" }
                             }
                           }
                     }]
