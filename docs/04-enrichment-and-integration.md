@@ -115,6 +115,20 @@ Copy and paste in the custom event pattern below.  Use the ARN you recorded for 
 
 13. Click **Create**.
 
+### Update the Lambda Function to send messages to Slack 
+The last step in this setup is to update the environment variables of your lambda function so that notifications can be sent to the correct Slack workspace.
+
+1. Navigate to the **Lambda** console.
+
+2. In the list of functions choose the **sechub-to-slack** function.
+
+3. Scroll down to environment variables and click **Edit**   Fill in:
+- **slackChannel:** the value from the Slack channel you created earlier in this workshop.
+- **webHookUrl:** URL of the webhook for the Slack setup you created earlier in this workshop.
+
+![Lambda Slack Env](./images/04-slack-lambda-env.png)
+
+4. Click **Save**.
 
 ### Testing the Integration between Security Hub and Slack  
 

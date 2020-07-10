@@ -1,11 +1,11 @@
 # Module 2: Custom Insights and Custom Findings
 
-A key feature of Security Hub is the ability to create security findings that are above and beyond the native integrations that Security Hub has with AWS services or 3rd party providers.  This custom findings feature gives customers flexibility to build their own security checks against their AWS environment and import them into Security Hub.
+A key feature of Security Hub is the ability to create security findings that are above and beyond the native integrations that Security Hub has with AWS services or 3rd party providers.  This custom findings feature gives customers the flexibility to build their security checks against their AWS environment and import them into Security Hub.
 
-In the environment for this workshop there are multiple sources that are sending custom findings into Security Hub:
-* The open source Cloud Custodian project running on an EC2 instance.
+In the environment for this workshop, multiple sources that are sending custom findings into Security Hub:
+* The open-source Cloud Custodian project running on an EC2 instance.
 * A Config Rule checking for non-compliant AMIs.
-* A lambda function looking for non-compliant secrets.
+* A Lambda function looking for non-compliant secrets.
 
 This module will guide you on how to either view or fully integrate these findings sources into Security Hub.
 

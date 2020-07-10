@@ -1,6 +1,6 @@
 # Module 3: Remediation and Response CIS Benchmark and Custom Action 
 
-In the first half of this module you will connect a Security Hub custom action to a provided Lambda function.  This function isolates an EC2 instance from the VPC network when invoked.  In the second half, you will deploy the auto remediation and response actions. 
+In the first half of this module, you will connect a Security Hub custom action to a provided Lambda function.  This function isolates an EC2 instance from the VPC network when invoked.  In the second half, you will deploy the auto remediation and response actions. 
 
 
 **Agenda**

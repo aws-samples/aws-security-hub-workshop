@@ -1,27 +1,62 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "re:Inforce Security Hub Workshop Team Template.  Sets up VPC, core EC2 instances, Lambda functions, turns on GuardDuty.",
+    "Metadata": {
+        "AWS::CloudFormation::Interface": {
+            "ParameterGroups": [
+                {
+                    "Label" : {"default": "Workshop Service Configuration"},
+                    "Parameters": ["EnableGuardDuty", "EnableSecurityHub", "EnableConfig"]
+                },
+                {
+                    "Label" : {"default": "Workshop Parameters"},
+                    "Parameters": ["DeployBucket", "LatestAMZNLinuxAMI", "LatestAMZNLinux2AMI", "LatestWindows2012R2AMI"]
+                }
+            ],
+            "ParameterLabels": {
+                "EnableGuardDuty": {"default" : "Automatically enable GuardDuty?"},
+                "EnableSecurityHub": {"default" : "Automatically enable SecurityHub?"},
+                "EnableConfig": {"default" : "Automatically enable Config?"},
+                "DeployBucket": {"default": "S3 bucket where workshop deployment assets are staged"}
+            }
+        }
+    },
     "Parameters": {
         "DeployBucket": {
-            "Description": "REQUIRED. Bucket holding assets that get deployed by this template.",
+            "Description": "REQUIRED. Enter just the name of the S3 bucket.",
             "MinLength": "1",
             "Type": "String",
             "AllowedPattern" : "[-a-zA-Z0-9]+"
         },
         "LatestAMZNLinuxAMI": {
-            "Description": "The latest AMI ID for Amazon Linux",
+            "Description": "DO NOT CHANGE: The latest AMI ID for Amazon Linux",
             "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
             "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
         },
         "LatestAMZNLinux2AMI": {
-            "Description": "The latest AMI ID for Amazon Linux2",
+            "Description": "DO NOT CHANGE: The latest AMI ID for Amazon Linux2",
             "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
             "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
         },
         "LatestWindows2012R2AMI": {
-            "Description": "The latest AMI ID for Windows 2012R2",
+            "Description": "DO NOT CHANGE: The latest AMI ID for Windows 2012R2",
             "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
             "Default": "/aws/service/ami-windows-latest/Windows_Server-2012-R2_RTM-English-64Bit-Base"
+        },
+        "EnableGuardDuty": {
+            "Description": "Choose Yes if GuardDuty is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
+            "Type": "String",
+            "AllowedValues": ["Yes", "No"]
+        },
+        "EnableSecurityHub": {
+            "Description": "Choose Yes if SecurityHub is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
+            "Type": "String",
+            "AllowedValues": ["Yes", "No"]
+        },
+        "EnableConfig": {
+            "Description": "Choose Yes if Config is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
+            "Type": "String",
+            "AllowedValues": ["Yes", "No"]
         }
     },
     "Mappings": {
@@ -44,6 +79,14 @@
             "us-west-2": {"HVM64": "ami-6b8cef13"}
             }
     },
+
+    "Conditions": {
+        "EnableConfig": {"Fn::Equals": [{"Ref": "EnableConfig"}, "Yes"]},
+        "EnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "Yes"]},
+        "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes"]}
+
+    },
+
     "Resources": {
         "KmsNoRotateKey" : {
             "Type" : "AWS::KMS::Key",
@@ -730,14 +773,17 @@
         },
         "ConfigBucket": {
             "Type": "AWS::S3::Bucket",
+            "Condition": "EnableConfig",
             "Properties": {}
         },
         "ConfigTopic": {
             "Type": "AWS::SNS::Topic",
+            "Condition": "EnableConfig",
             "Properties": {}
         },
         "DeliveryChannel": {
             "Type": "AWS::Config::DeliveryChannel",
+            "Condition": "EnableConfig",
             "Properties": {
                 "ConfigSnapshotDeliveryProperties": {
                     "DeliveryFrequency": "Six_Hours"
@@ -752,6 +798,7 @@
         },
         "ConfigurationRecorderRole": {
             "Type": "AWS::IAM::Role",
+            "Condition": "EnableConfig",
             "Properties": {
                 "ManagedPolicyArns": [
                     "arn:aws:iam::aws:policy/service-role/AWSConfigRole"
@@ -817,6 +864,7 @@
         },
         "ConfigurationRecorder": {
             "Type": "AWS::Config::ConfigurationRecorder",
+            "Condition": "EnableConfig",
             "Properties": {
                 "RecordingGroup": {
                     "AllSupported": true,
@@ -832,6 +880,7 @@
         },
         "AMIConfigRule":{
             "Type": "AWS::Config::ConfigRule",
+            "Condition": "EnableConfig",
             "DependsOn": "ConfigurationRecorder",
             "Properties":{
                 "ConfigRuleName": "approved-amis-by-id",
@@ -897,6 +946,18 @@
                         "Arn"
                     ]
                 }
+            }
+        },
+        "SecHubEnable": {
+            "Type": "AWS::SecurityHub::Hub",
+            "Condition": "EnableSecurityHub"
+        },
+        "GDdetector": {
+            "Type": "AWS::GuardDuty::Detector",
+            "Condition": "EnableGuardDuty",
+            "Properties": {
+                "Enable": true,
+                "FindingPublishingFrequency": "FIFTEEN_MINUTES"
             }
         },
         "GuardDutyTesterTemplate": {

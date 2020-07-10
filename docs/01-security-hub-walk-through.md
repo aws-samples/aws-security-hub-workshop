@@ -1,6 +1,6 @@
 # Module 1: Security Hub Walkthrough 
 
-In this section of the Security Hub Workshop you will follow a guided demonstration of the features of Security Hub.  You can use this demonstration to learn about Security Hub's capabilities.   
+In this section of the Security Hub Workshop, you will follow a guided demonstration of the features of Security Hub.  You can use this demonstration to learn about Security Hub's capabilities.   
 
 **Agenda** 20 minutes
  
@@ -126,7 +126,7 @@ Security Hub imports findings AWS security services, third-party product integra
 ![Findings Search](./images/01-findings-search-s3.png)
 
 ## Insights  
-A Security Hub Insight is a collection of related findings defined by an aggregation statement and optional filters. An insight identifies a security area that requires attention and intervention. Security Hub offers several managed (default) insights that you can't modify or delete. You can also create custom insights to track security issues that are unique to your AWS environment and usage.  
+A Security Hub Insight is a collection of related findings defined by an aggregation statement and optional filters. An insight identifies a security area that requires attention and intervention. Security Hub offers several managed (default) insights that you can't modify or delete. You can also create custom insights to track security issues unique to your AWS environment and usage.  
 
 1. Click on **Insights** from the left-hand navigation pane. 
 
@@ -189,15 +189,6 @@ To run the CIS AWS Foundations standard's compliance checks on your environment'
 
 ![CIS 4.1](./images/01-standards-cis-4-1-remediation.png)
 
-8. Now Click **Services** in the top left corner. Type **Config** in the search. Right click on Config and select **Open Link in New Tab**.
-
-![Config](./images/01-standards-config-search.png)
-
-9. Go to the new tab open go to **AWS Config**. Notice the **‘securityhub-‘** prefixed rules 
-
-![Config](./images/01-standards-config.png)
-
-!!! info "While you can see the underlying config rule and compliance statuses directly in config, these rules are managed by Security Hub and cannot be changed here."
 
 Now that you have explored Security Hub's capabilities, you can proceed to the next module.
 

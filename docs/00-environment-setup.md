@@ -1,12 +1,12 @@
 # Environment Setup
 
-The procedures in this workshop use multiple Lambda functions, EC2 instances, and other AWS resources created via CloudFormation templates. In this module you will copy the important contents from the workshop GitHub repository and upload them into an S3 bucket in the AWS account you are using to perform the workshop.
+This workshop's procedures use multiple Lambda functions, EC2 instances, and other AWS resources created via CloudFormation templates. In this module, you will copy the essential contents from the workshop GitHub repository and upload them into an S3 bucket in the AWS account you are using to perform the workshop.
 
 **Agenda**
  
 1. Download the workshop assets from GitHub - 5 min
 2. Create S3 bucket and store workshop assets – 5 min
-3. Enable Security Hub and enable GuardDuty - 5 min
+3. Determine if have already enabled Security Hub, Config, and GuardDuty - 5 min
 4. Deploy workshop CloudFormation stack  - 10 min
 
 
@@ -40,7 +40,10 @@ The procedures in this workshop use multiple Lambda functions, EC2 instances, an
 
 !!! info "Do not proceed unless you have five(5) .zip files and five(5) .json files."
 
-## Enable Security Hub and enable GuardDuty
+## Determine if you have enabled Security Hub, Config, and GuardDuty.
+Config, Security Hub, and GuardDuty must be enabled in the account and region you are conducting this workshop in.  The CloudFormation template that sets up the workshop has the option to enable all of this for you.  If you choose for that to happen, and these services are already enabled, the template will fail.
+
+In order to correctly perform the next step, you must confirm the status of each of these services.  If you already know the status, such as a fresh account provided by AWS for this workshop, proceed to the next section.
 
 1. From the **AWS Console** click **Services** in the top left corner
 
@@ -50,43 +53,40 @@ The procedures in this workshop use multiple Lambda functions, EC2 instances, an
 
 ![AWS Console](./images/01-aws-console.png)
 
-4. Click **Go to Security Hub** on the right side of the page.
+4. If you see  **Go to Security Hub** on the right side of the page, Security Hub is **not** enabled.
 
-5. Leave AWS Foundational and CIS AWS Foundations **checked**.
+5. Click **Services** in the top left corner.
 
-![AWS Console](./images/00-enable-security-hub.png)
+6. Type **GuardDuty** in the search bar, and select **GuardDuty** from the list.
 
-6. Click **Enable Security Hub** on the Welcome to AWS Security Hub page.
+7. If you see **Get started** in the center of the page, GuardDuty is **not** enabled.
 
-7. Click **Services** in the top left corner.
+8. Click **Services** in the top left corner.
 
-8. Type **GuardDuty** in the search bar.
+9. Type **Config** in the search bar, and select **Config** from the list.
 
-9. Click **Get started** in the center of the page.
-
-10. Click **Enable GuardDuty** on the Welcome to GuardDuty page.
-
-![AWS Console](./images/00-enable-guardduty.png)
-
+10. If you see **Get started** in the center of the page, Config is **not** enabled.
 
 ## Deploy workshop CloudFormation stack
 
-7. Navigate to **CloudFormation Console**. 
+1. Navigate to **CloudFormation Console**. 
 
-8. Click **Create stack**.
+2. Click **Create stack**.
 
-9. In the **Amazon S3 URL**, add the path to your setup template. Replace [YOUR-BUCKET-NAME] in the example below.
+3. In the **Amazon S3 URL**, add the path to your setup template. Replace [YOUR-BUCKET-NAME] in the example below.
 
 ```
 https://[YOUR-BUCKET-NAME].s3.amazonaws.com/sechub-workshop-setup-template.json
 
 ```
 
-10. Click **Next** on Create stack page.
+4. Click **Next** on Create stack page.
 
-11. Provide your **Stack name**.
+5. Provide your **Stack name**.
 
-12. In the **Parameters** enter the name of the S3 deployment bucket you created.   Leave all other parameters with their default value.
+6. In the **Parameters** section, select **Yes** (DO ENABLE) or **No** for each of the three services checked in the prior section; GuardDuty, SecurityHub, and Config.  
+
+7. Enter the name of the S3 deployment bucket you created and stored the workshop artifacts in.   Leave remaining parameters with their default value.
 
 ![Setup](./images/00-stack-details.png)
 
@@ -100,6 +100,6 @@ https://[YOUR-BUCKET-NAME].s3.amazonaws.com/sechub-workshop-setup-template.json
 
 15. Click **Create Stack**. 
 
-!!! info "Use the refresh button to see updates as this template will create five nested templates and should take 5-10 minutes to complete."
+!!! info "Use the refresh button to see updates as this template will create five nested templates and should take 5-10 minutes to complete.  Once the full stack creation is done you should see findings created in Security Hub over next 30 minutes of this workshop."
 
-In this module you created an S3 bucket, transferred the workshop artifacts, and deployed the setup templates.  After you have successfully created the stack, you can proceed to the next module.
+In this module, you created an S3 bucket, transferred the workshop artifacts, and deployed the setup templates.  After you have successfully created the stack, you can proceed to the next module.
