@@ -8,7 +8,7 @@ site_url: 'https://aws-security-hub-workshop.awssecworkshops.com/'
 
 # Repository
 repo_name: 'aws-samples/aws-security-hub-workshop'
-repo_url: 'https://github.com/aws-samples/security-hub-workshop/'
+repo_url: 'https://github.com/aws-samples/aws-security-hub-workshop/'
 
 # Copyright
 copyright: '&copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
@@ -25,16 +25,16 @@ theme:
 # Customization
 extra_css:
   - 'stylesheets/custom.css'
-extra:
-  social:
-    - type: 'home'
-      link: 'https://awssecworkshops.com'
-    - type: 'shield'
-      link: 'https://aws.amazon.com/security/'
-    - type: 'twitter'
-      link: 'https://twitter.com/awssecurityinfo?lang=en'
-    - type: 'rss'
-      link: 'https://aws.amazon.com/blogs/security/'
+#extra:
+#  social:
+#    - type: 'home'
+#      link: 'https://awssecworkshops.com'
+#    - type: 'shield'
+#      link: 'https://aws.amazon.com/security/'
+#    - type: 'twitter'
+#      link: 'https://twitter.com/awssecurityinfo?lang=en'
+#    - type: 'rss'
+#      link: 'https://aws.amazon.com/blogs/security/'
 
 # Extensions
 markdown_extensions:
