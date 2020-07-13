@@ -16,8 +16,8 @@ copyright: '&copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights
 # Configuration
 theme:
   name: 'material'
-  #logo: 'assets/images/aws_smile_logo.png'
-  #favicon: 'assets/images/aws-favicon.ico'
+  logo: 'assets/images/aws_smile_logo.png'
+  favicon: 'assets/images/aws-favicon.ico'
   feature:
     tabs: true
   custom_dir: 'docs/theme'
@@ -51,4 +51,4 @@ nav:
   - 'Module 3: Remediation & Response': '03-remediation-and-response.md'
   - 'Module 4: Enrichment & Integration': '04-enrichment-and-integration.md'
   - Contributing: 'contribute.md'
-  - License: 'license.md'
+  - License: 'LICENSE'
