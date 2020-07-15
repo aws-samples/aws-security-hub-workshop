@@ -28,11 +28,11 @@ The Security Hub Summary page gives you an overview of security and compliance s
 
 ![Security Hub Summary](./images/01-sec-hub-summary.png)
 
-!! info "Security Hub automatically enables subscriptions to GuardDuty and Inspector.  Also collected, but not used in this workshop are findings from Macie, IAM Access Analyzer, and Firewall Manager."
+!!! info "Security Hub automatically enables subscriptions to GuardDuty and Inspector.  Also collected, but not used in this workshop are findings from Macie, IAM Access Analyzer, and Firewall Manager."
 
 5. Observe the Passed and Failed status of the **CIS AWS Foundations**.  Even though you just enabled it a few minutes ago, partial results of the 43 total checks have been collected.
 
-!!! info "Refresh your browser to see the latest results.  After you enable a security standard, AWS Security Hub begins to run the checks within 2 hours.  After the initial check, the schedule for each control may be either periodic (12 hours) or change-triggered. "
+!!! info "Refresh your browser to see the latest results.  After you enable a security standard, AWS Security Hub begins to run the checks within 2 hours.  After the initial check, the schedule for each control may be either periodic (12 hours) or change-triggered."
 
 6. Scroll down to the graphs under **Insights** (Your graphs maybe different).  Move your mouse over **New findings over time by provider** and observe the 3 sources of findings that Security Hub is already collecting.  (There will be more throughout this workshop)
 
@@ -165,7 +165,7 @@ To run the CIS AWS Foundations standard's compliance checks on your environment'
 
 ![Security Standards](./images/01-standards-home.png)
 
-!!! info "Note the Security score should have changed from you first enabled the CIS standard.
+!!! info "Note the Security score should have changed from you first enabled the CIS standard."
 
 2. Click **View Results** for CIS AWS Foundations Benchmark v1.2.0.
 
