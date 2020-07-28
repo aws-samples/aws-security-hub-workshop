@@ -143,7 +143,7 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
 1. Download <a href ='https://github.com/aws-samples/aws-security-hub-response-and-remediation/blob/master/SecurityHub_CISPlaybooks_CloudFormation.yaml'>CloudFormation template </a> from GitHub.
 
-!!! info "If you are not familiar with github downloads: 1. Click RAW 2. Save As... from your browser.  Some browsers will require you to add .yaml at the end of the file name. 
+!!! info "If you are not familiar with github downloads: 1. Click RAW 2. Save As... from your browser.  Some browsers will require you to add .yaml at the end of the file name."
 
 2. Navigate to **Cloudformation Stacks** console.
 
@@ -165,7 +165,7 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
 11. Click **Create stack**.
 
-!!! info “Please wait a moment for the creation to complete or progress to start, then proceed to Step 11.”
+!!! info "Please wait a moment for the creation to complete or progress to start, then proceed to Step 11."
 
 12. Navigate to the **Resources** tab of this CloudFormation stack and observe the resources created for each rule.
 
@@ -175,7 +175,7 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
 ![remediation](./images/03-remediation-playbook-cis28.png)
 
-!!! info "Note the resources created for this remediation action are a EventBridge Rule that connects the custom action to the Lambda function, an IAM role and permission for Lambda to assume and take the needed actions, A Lambda function with the code to execute the response, and a Security Hub custom action to initiate the remediation. 
+!!! info "Note the resources created for this remediation action are a EventBridge Rule that connects the custom action to the Lambda function, an IAM role and permission for Lambda to assume and take the needed actions, A Lambda function with the code to execute the response, and a Security Hub custom action to initiate the remediation."
 
 14. Navigate to the **Security Hub** dashboard. 
 
@@ -187,9 +187,9 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
 17. Type "**2.8**" in the Filter controls bar.
 
-!!! info "AWS KMS enables customers to rotate the backing key, which is key material stored in AWS KMS and is tied to the key ID of the CMK. It's the backing key that is used to perform cryptographic operations such as encryption and decryption. Automated key rotation currently retains all previous backing keys so that decryption of encrypted data can take place transparently.
+!!! info "AWS KMS enables customers to rotate the backing key, which is key material stored in AWS KMS and is tied to the key ID of the CMK. It's the backing key that is used to perform cryptographic operations such as encryption and decryption. Automated key rotation currently retains all previous backing keys so that decryption of encrypted data can take place transparently."
 
-We recommend that you enable CMK key rotation. Rotating encryption keys helps reduce the potential impact of a compromised key because data encrypted with a new key can't be accessed with a previous key that might have been exposed. "
+!!! info "We recommend that you enable CMK key rotation. Rotating encryption keys helps reduce the potential impact of a compromised key because data encrypted with a new key can't be accessed with a previous key that might have been exposed."
 
 18. Click the title for "CIS 2.8 Ensure rotation for customer created CMKs is enabled"
 
