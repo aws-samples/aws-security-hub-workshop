@@ -69,7 +69,7 @@ Taking action on a finding in Security Hub results in the information for the fi
 
 ![ChatOps](./images/04-chatops-custom-create-rule.png)
 
-!! info "All Security Hub findings are sent as events to the AWS default event bus.  The define pattern section allows you to identify filters to take a specific action when matched events appear."
+!!! info "All Security Hub findings are sent as events to the AWS default event bus.  The define pattern section allows you to identify filters to take a specific action when matched events appear."
 
 4. Under Define pattern, select **Event pattern**. 
 
