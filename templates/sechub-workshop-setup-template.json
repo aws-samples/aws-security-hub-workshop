@@ -83,7 +83,8 @@
     "Conditions": {
         "EnableConfig": {"Fn::Equals": [{"Ref": "EnableConfig"}, "Yes"]},
         "EnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "Yes"]},
-        "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes"]}
+        "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes"]},
+        "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No"]}
 
     },
 
@@ -882,6 +883,29 @@
             "Type": "AWS::Config::ConfigRule",
             "Condition": "EnableConfig",
             "DependsOn": "ConfigurationRecorder",
+            "Properties":{
+                "ConfigRuleName": "approved-amis-by-id",
+                "Description": "Config Rule to check for approved AMIs in the account",
+                "InputParameters": {
+                    "amiIds": 
+                        {"Fn::Join": [
+                            ",",
+                                [
+                                    {"Ref": "LatestAMZNLinuxAMI"},
+                                    {"Ref": "LatestAMZNLinux2AMI"},
+                                    {"Ref": "LatestWindows2012R2AMI"}
+                                ]
+                        ]}
+                },
+                "Source": {
+                    "Owner": "AWS",
+                    "SourceIdentifier": "APPROVED_AMIS_BY_ID"
+                }
+            }
+        },
+        "AMIConfigRule1":{
+            "Type": "AWS::Config::ConfigRule",
+            "Condition": "EnableRuleOnly",
             "Properties":{
                 "ConfigRuleName": "approved-amis-by-id",
                 "Description": "Config Rule to check for approved AMIs in the account",
