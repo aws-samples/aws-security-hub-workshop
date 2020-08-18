@@ -10,7 +10,7 @@ logger.setLevel(logging.INFO)
 
 def postEnrichmentNote (ENRICHMENT_AUTHOR, ENRICHMENT_TEXT, ENRICHMENT_FINDING_ID):
     
-    # This function takes a 'ready to post' entrichment note, author label, and 
+    # This function takes a 'ready to post' enrichment note, author label, and 
     # adds them to a distinct finding ID
     
     logger.info("Text to post: " + ENRICHMENT_TEXT)
