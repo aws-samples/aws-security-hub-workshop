@@ -1,7 +1,7 @@
 # Lambda function that will switch the security groups on an EC2 instance to the security group that is defined in the function environment variables.
 # Environment variables required:
 #            - Security_SG - name of the security group used by the security team to investigate an instance
-#            - Corp_CIDR - CIDR block of the coprorte network to access the instane to investigate
+#            - Corp_CIDR - CIDR block of the corporate network to access the instane to investigate
 
 
 import json

@@ -121,7 +121,7 @@ For this lab the custom findings have been built to utilize the Generator ID fie
 
 3. Click **Create insight**.
 
-4. Click in the filter field at the top to add additinal filters.
+4. Click in the filter field at the top to add additional filters.
 
 5. Choose a filter field of **Company name**.  Choose a filter match type of **EQUALS** and a value of **Personal**.
 ![Config](./images/02-create-custom-insight-company-filter.png)

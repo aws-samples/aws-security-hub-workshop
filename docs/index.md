@@ -16,11 +16,11 @@ Your company is new to the cloud and is steadily migrating workloads into your c
 
 ## Architecture
 
-For this workshop there will be multiple pieces of infrastructure and AWS services deployed in order to faciliate creation of security findings in Security Hub.  
+For this workshop there will be multiple pieces of infrastructure and AWS services deployed in order to facilitate creation of security findings in Security Hub.  
 
-Multiple EC2 instances will be launched to faciliate the generation of findings from GuardDuty & Inspector.  Additionally these instances will be used to help with demonstration of integration of custom findings into Security Hub.
+Multiple EC2 instances will be launched to facilitate the generation of findings from GuardDuty & Inspector.  Additionally these instances will be used to help with demonstration of integration of custom findings into Security Hub.
 
-Multiple AWS services will be configured in the workshop to help faciliate the generation of Security Hub findings.  These services include:
+Multiple AWS services will be configured in the workshop to help facilitate the generation of Security Hub findings.  These services include:
 * Security Hub
 * GuardDuty 
 * Secrets Manager
