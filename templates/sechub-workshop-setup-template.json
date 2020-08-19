@@ -84,8 +84,9 @@
         "EnableConfig": {"Fn::Equals": [{"Ref": "EnableConfig"}, "Yes"]},
         "EnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "Yes"]},
         "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes"]},
-        "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No"]}
-
+        "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No"]},
+        "EnableSecHubButNotConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableRuleOnly" }]},
+        "EnableSecHubButAndConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableConfig" }]}
     },
 
     "Resources": {
@@ -972,9 +973,15 @@
                 }
             }
         },
+        "SecHubEnable1": {
+            "DependsOn" : ["AMIConfigRule1"],
+            "Condition": "EnableSecHubButNotConfig",
+            "Type": "AWS::SecurityHub::Hub"
+        },
         "SecHubEnable": {
-            "Type": "AWS::SecurityHub::Hub",
-            "Condition": "EnableSecurityHub"
+            "DependsOn" : ["ConfigurationRecorder"],
+            "Condition": "EnableSecHubButAndConfig",
+            "Type": "AWS::SecurityHub::Hub"
         },
         "GDdetector": {
             "Type": "AWS::GuardDuty::Detector",
