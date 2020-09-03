@@ -86,7 +86,7 @@ Security Hub detects and consolidates only those security findings from the supp
 ![Security Hub Integrations](./images/01-integrations-all.png)
 
 
-2. Scroll through the list of available integrations.  Return to the top and **search** for a SaaS based solution such as: **Checkpoint: Dome9 Arc**, **Palo Alto Networks: Redlock**, or **Symantec: Cloud Workload Protect**.   
+2. Scroll through the list of available integrations.  Return to the top and **search** for a SaaS based solution such as: **Check Point: Dome9 Arc**, **Palo Alto Networks: Redlock**, or **Symantec: Cloud Workload Protect**.   
 
 ![Integrations Search](./images/01-integrations-search.png)
 
