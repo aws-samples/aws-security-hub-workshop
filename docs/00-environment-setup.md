@@ -38,7 +38,7 @@ This workshop's procedures use multiple Lambda functions, EC2 instances, and oth
 
 ![Setup](./images/00-bucket-contents.png)
 
-!!! info "Do not proceed unless you have five(5) .zip files and five(5) .json files."
+!!! info "Do not proceed unless you have five(5) .zip files, five(5) .json files and one(1) .yaml file."
 
 ## Determine if you have enabled Security Hub, Config, and GuardDuty.
 Config, Security Hub, and GuardDuty must be enabled in the account and region you are conducting this workshop in.  The CloudFormation template that sets up the workshop has the option to enable all of this for you.  If you choose for that to happen, and these services are already enabled, the template will fail.

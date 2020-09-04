@@ -89,7 +89,7 @@ In the rule detail screen you will see the rule configured with a list of approv
 
 An instance should now be showing as noncompliant in the **Choose resources in scope** section.  This re-run of the config rule will trigger the EventBridge rule that is looking for noncompliant resources, resulting in the finding showing in Security Hub.  
 
-!!!Clearing results and re-evaluating the config rule is being done to help force sending findings into Security Hub for this workshop.  Under normal circumstances you will not need manually run the config rule in order to get findings to show in Security Hub.  Once you have the Config and EventBridge rules configured, new noncompliant resources will automatically flow into Security Hub as a config rule finds noncompliant resources.  
+!!! Clearing results and re-evaluating the config rule is being done to help force sending findings into Security Hub for this workshop.  Under normal circumstances you will not need manually run the config rule in order to get findings to show in Security Hub.  Once you have the Config and EventBridge rules configured, new noncompliant resources will automatically flow into Security Hub as a config rule finds noncompliant resources.  
 
 ### View the noncompliant AMI finding in Security Hub 
 
@@ -103,7 +103,7 @@ An instance should now be showing as noncompliant in the **Choose resources in s
 
 You now have setup in place that helps demonstrate how you can send custom findings into Security Hub using AWS data sources and EventBridge rules.
 
-!!!In your environment the Lambda function **find-secrets-without-rotation** checks for secrets that have a rotation time that is beyond the max days parameter on the function.  When secrets are found with a rotation time beyond what is defined in the function a finding is created in Security Hub.  Take some time to explore the Lambda function to see how you can directly send custom findings into Security Hub.  
+!!! In your environment the Lambda function **find-secrets-without-rotation** checks for secrets that have a rotation time that is beyond the max days parameter on the function.  When secrets are found with a rotation time beyond what is defined in the function a finding is created in Security Hub.  Take some time to explore the Lambda function to see how you can directly send custom findings into Security Hub.  
 
 ## Create Custom Insights for Custom Findings
 
