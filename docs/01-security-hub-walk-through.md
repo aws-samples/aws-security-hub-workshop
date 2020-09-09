@@ -165,7 +165,7 @@ To run the CIS AWS Foundations standard's compliance checks on your environment'
 
 ![Security Standards](./images/01-standards-home.png)
 
-!!! info "Note the Security score should have changed from you first enabled the CIS standard."
+!!! info "Note the Security score should have changed from when you first enabled the CIS standard."
 
 2. Click **View Results** for CIS AWS Foundations Benchmark v1.2.0.
 
@@ -183,7 +183,7 @@ To run the CIS AWS Foundations standard's compliance checks on your environment'
 
 6. Select a **FAILED** Findings.  Notice the definition of CIS 4.1.
 
-7. Click the **Remediation**, to open guidance in a new tab.
+7. Click the **Remediation instructions link**, to open guidance in a new tab.
 
 !!! info "AWS Security Hub Security Standards provide remediation guidance for each check."
 

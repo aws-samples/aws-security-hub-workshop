@@ -35,13 +35,13 @@ This section creates the rule which will catch messages sent from Config rules a
 
 ![Custom Action](./images/03-custom-eventbridge.png)
 
-3. In the Create rule page give your rule a **name** and a **description** that represents the rule's purpose.
+3.  In the Create rule page give your rule a **name** and a **description** that represents the rule's purpose.
 
 ![Custom Action](./images/02-custom-create-rule.png)
 
 !!! info "All Config Rule output is sent as events to the AWS default event bus.  The define pattern section allows you to identify filters to take a specific action when matched events appear."
 
-4. Under Define pattern, select **Event pattern**. 
+4.  Under Define pattern, select **Event pattern**. 
 
 5. Select **Pre-defined pattern by service**.
 
@@ -49,7 +49,7 @@ This section creates the rule which will catch messages sent from Config rules a
 
 7. In the drop down for **Service Name**, select or type and select **Config**.
 
-8.	Choose **Config Rules Compliance Change** for the **Event Type**. 
+8. For the **Event Type**, choose **Config Rules Compliance Change** . 
 
 9.	Chose the **Specific rule name(s)** radio button and enter **approved-amis-by-id** in the text box.
 
@@ -65,7 +65,7 @@ This section creates the rule which will catch messages sent from Config rules a
 
 
 ### Create a rule to track approved AMIs 
-This section will run the config rule to generate information on noncompliant resources and send them to Security Hub.
+This section will run the Config rule to generate information on noncompliant resources and send them to Security Hub.
 
 1. Navigate to the **AWS Config** dashboard
 
@@ -87,9 +87,9 @@ In the rule detail screen you will see the rule configured with a list of approv
 
 5. Click the **Re-evaluate** button.  You will get a message that the Config rule is in use and that you need to refresh the page.  At this point you can either refresh the entire page in your browser or use the refresh button in the **Choose resources in scope** section of the page.
 
-An instance should now be showing as noncompliant in the **Choose resources in scope** section.  This re-run of the config rule will trigger the EventBridge rule that is looking for noncompliant resources, resulting in the finding showing in Security Hub.  
+An instance should now be showing as noncompliant in the **Choose resources in scope** section.  This re-run of the Config rule will trigger the EventBridge rule that is looking for noncompliant resources, resulting in the finding showing in Security Hub.  
 
-!!!Clearing results and re-evaluating the config rule is being done to help force sending findings into Security Hub for this workshop.  Under normal circumstances you will not need manually run the config rule in order to get findings to show in Security Hub.  Once you have the Config and EventBridge rules configured, new noncompliant resources will automatically flow into Security Hub as a config rule finds noncompliant resources.  
+!!!Clearing results and re-evaluating the Config rule is being done to help force sending findings into Security Hub for this workshop.  Under normal circumstances you will not need manually run the Config rule in order to get findings to show in Security Hub.  Once you have the Config and EventBridge rules configured, new noncompliant resources will automatically flow into Security Hub as a Config rule finds noncompliant resources.  
 
 ### View the noncompliant AMI finding in Security Hub 
 
@@ -101,7 +101,7 @@ An instance should now be showing as noncompliant in the **Choose resources in s
 
 ![Config](./images/02-unapproved-ami-finding.png)
 
-You now have setup in place that helps demonstrate how you can send custom findings into Security Hub using AWS data sources and EventBridge rules.
+You now have a setup in place that helps demonstrate how you can send custom findings into Security Hub using AWS data sources and EventBridge rules.
 
 !!!In your environment the Lambda function **find-secrets-without-rotation** checks for secrets that have a rotation time that is beyond the max days parameter on the function.  When secrets are found with a rotation time beyond what is defined in the function a finding is created in Security Hub.  Take some time to explore the Lambda function to see how you can directly send custom findings into Security Hub.  
 

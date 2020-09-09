@@ -38,29 +38,27 @@ If you want to create a new channel click on the + next to 'Channels' and create
 
 2. Click **Start Building**.  
  
-3. Click on **Create Your Slack App** button. 
+3. Click on **Create an App** button. 
 
-4.  Click on **Create New App** button. 
-
-5.  Fill in the following details for your app:  
+4.  Fill in the following details for your app:  
 - **App Name**: security-hub-to-slack 
 - **Development Slack Workspace**: Choose the Slack workspace that will receive the Security Hub findings ( this is the one you created)  
 
 ![SlackApp](./images/04-slack-create-app.png)
 
-7. Click the **Create App** Button.
+5. Click the **Create App** Button.
 
-8.  Select **Incoming Webhooks**. 
+6.  Select **Incoming Webhooks**. 
 
-9.  At the **Activate Incoming Webhooks** screen, move the slider from OFF to ON. 
+7.  At the **Activate Incoming Webhooks** screen, move the slider from OFF to ON. 
 
-10. Scroll down and choose **Add New Webhook to Workspace**. 
+8. Scroll down and choose **Add New Webhook to Workspace**. 
  
-11. In the screen asking where your app should post choose the channel that you created in an earlier step.
+9. In the screen asking where your app should post choose the channel that you created in an earlier step.
 
 ![SlackAppChannel](./images/04-slack-app-channel-choose.png)
 
-12. On the next screen, scroll down to the Webhook URL section and save the URL as you will need it later to complete your setup.
+10. On the next screen, scroll down to the Webhook URL section and save the URL as you will need it later to complete your setup.
 
 
 ### Create Custom Action in Security Hub
