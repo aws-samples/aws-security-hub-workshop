@@ -99,7 +99,6 @@
     	"InspectorRunLambdaRole":{
             "Type": "AWS::IAM::Role",
             "Properties": {
-                "RoleName": "InspectorRunLambdaRole",
                 "Path": "/",
                 "AssumeRolePolicyDocument": {
                     "Version" : "2012-10-17",

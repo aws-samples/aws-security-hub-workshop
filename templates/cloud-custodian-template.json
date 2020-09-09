@@ -48,7 +48,6 @@
             "Ref": "CloudCustodianInstanceRole"
           }
         ],
-        "InstanceProfileName": "CloudCustodianInstanceProfile"
       }
     },
     "CloudCustodianInstance": {
