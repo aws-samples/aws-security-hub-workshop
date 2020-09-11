@@ -266,7 +266,6 @@
         "IsolateInstanceLambdaRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
-                "RoleName": "IsolateInstanceLambdaRole",
                 "Path": "/",
                 "AssumeRolePolicyDocument": {
                     "Version": "2012-10-17",
@@ -469,7 +468,6 @@
         "AMIComplianceLambdaRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
-                "RoleName": "AMIComplianceLambdaRole",
                 "Path": "/",
                 "AssumeRolePolicyDocument": {
                     "Version": "2012-10-17",
