@@ -23,7 +23,6 @@ This is a representation of the architecture you will be implementing:
 
 ![Config](./images/02-config-architecture.png)
 
-
 For this part of the workshop a Config rule has already been defined.  The specific Config rule being used is **approved-amis-by-id**.  This rule looks for EC2 instances backed by AMIs that are not in the rule's list of approved AMIs.  Any EC2 instances that are not using an AMI that is in the approved list will be reported by the rule as noncompliant.
 
 ### Create EventBridge Rule
@@ -73,7 +72,7 @@ This section will run the Config rule to generate information on noncompliant re
 
 ![Config](./images/02-config-dashboard.png)
 
-!!! Make sure to not choose Rules from the Aggregated view menu.  This requires Config Aggregator and this feature is not used in this workshop.
+!!! info "Make sure to not choose Rules from the Aggregated view menu.  This requires Config Aggregator and this feature is not used in this workshop."
 
 2. In the Rules page there will be one rule named **approved-amis-by-id**.  Click on the rule name to go to the detail page for that rule.  
 
@@ -89,7 +88,7 @@ In the rule detail screen you will see the rule configured with a list of approv
 
 An instance should now be showing as noncompliant in the **Choose resources in scope** section.  This re-run of the Config rule will trigger the EventBridge rule that is looking for noncompliant resources, resulting in the finding showing in Security Hub.  
 
-!!! Clearing results and re-evaluating the Config rule is being done to help force sending findings into Security Hub for this workshop.  Under normal circumstances you will not need manually run the Config rule in order to get findings to show in Security Hub.  Once you have the Config and EventBridge rules configured, new noncompliant resources will automatically flow into Security Hub as a Config rule finds noncompliant resources.  
+!!! info "Clearing results and re-evaluating the Config rule is being done to help force sending findings into Security Hub for this workshop.  Under normal circumstances you will not need manually run the Config rule in order to get findings to show in Security Hub.  Once you have the Config and EventBridge rules configured, new noncompliant resources will automatically flow into Security Hub as a Config rule finds noncompliant resources."  
 
 ### View the noncompliant AMI finding in Security Hub 
 
@@ -103,7 +102,7 @@ An instance should now be showing as noncompliant in the **Choose resources in s
 
 You now have a setup in place that helps demonstrate how you can send custom findings into Security Hub using AWS data sources and EventBridge rules.
 
-!!! In your environment the Lambda function **find-secrets-without-rotation** checks for secrets that have a rotation time that is beyond the max days parameter on the function.  When secrets are found with a rotation time beyond what is defined in the function a finding is created in Security Hub.  Take some time to explore the Lambda function to see how you can directly send custom findings into Security Hub.  
+!!! info "In your environment the Lambda function **find-secrets-without-rotation** checks for secrets that have a rotation time that is beyond the max days parameter on the function.  When secrets are found with a rotation time beyond what is defined in the function a finding is created in Security Hub.  Take some time to explore the Lambda function to see how you can directly send custom findings into Security Hub." 
 
 ## Create Custom Insights for Custom Findings
 
