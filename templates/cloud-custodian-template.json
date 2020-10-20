@@ -11,6 +11,14 @@
       "Description": "The latest AMI ID for Amazon Linux 2",
       "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
       "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+    },
+    "InstanceSubnetId": {
+            "Type": "String",
+            "Description": "Id of the Subnet to launch instance into"
+    },
+    "DeployVPC": {
+            "Type": "String",
+            "Description": "Id of the VPC to launch instances into"
     }
   },
   "Resources": {
@@ -56,12 +64,15 @@
         "ImageId": {
           "Ref": "AMZNLinux2AMI"
         },
-        "InstanceType": "t2.micro",
-        "SecurityGroups": [
+        "InstanceType": "t3.micro",
+        "SecurityGroupIds": [
           {
-            "Ref": "CloudCustodianSG"
+            "Fn::GetAtt" : ["CloudCustodianSG", "GroupId"] 
           }
         ],
+        "SubnetId": {
+          "Ref": "InstanceSubnetId"
+        },
         "IamInstanceProfile": {
           "Ref": "CloudCustodianInstanceProfile"
         },
@@ -72,10 +83,10 @@
               [
                 "#!/bin/bash -xe\n",
                 "yum upgrade -y\n",
-                "yum install python-pip -y\n",
-                "pip install c7n\n",
+                "yum install python3-pip -y\n",
+                "pip3 install c7n\n",
                 "crontab<<EOF\n",
-                "*/15 * * * * /bin/custodian run -s /tmp /var/policies.yaml\n",
+                "*/15 * * * * /usr/local/bin/custodian run -s /tmp /var/policies.yaml\n",
                 "EOF\n",
                 "aws configure set region ",
                 {"Ref":"AWS::Region"},
@@ -110,6 +121,9 @@
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
         "GroupDescription": "Enable SSH access via port 22 for testing",
+        "VpcId": {
+          "Ref": "DeployVPC"
+        },
         "SecurityGroupIngress": [
           {
             "IpProtocol": "tcp",

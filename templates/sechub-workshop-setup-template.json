@@ -46,17 +46,17 @@
         "EnableGuardDuty": {
             "Description": "Choose Yes if GuardDuty is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
             "Type": "String",
-            "AllowedValues": ["Yes", "No"]
+            "AllowedValues": ["Yes-Enable GuardDuty", "No-Do not enable GuardDuty"]
         },
         "EnableSecurityHub": {
             "Description": "Choose Yes if SecurityHub is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
             "Type": "String",
-            "AllowedValues": ["Yes", "No"]
+            "AllowedValues": ["Yes-Enable Security Hub", "No-Do not enable Security Hub"]
         },
         "EnableConfig": {
             "Description": "Choose Yes if Config is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
             "Type": "String",
-            "AllowedValues": ["Yes", "No"]
+            "AllowedValues": ["Yes-Enable Config", "No-Do not enable Config"]
         }
     },
     "Mappings": {
@@ -81,12 +81,12 @@
     },
 
     "Conditions": {
-        "EnableConfig": {"Fn::Equals": [{"Ref": "EnableConfig"}, "Yes"]},
-        "EnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "Yes"]},
-        "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes"]},
-        "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No"]},
+        "EnableConfig": {"Fn::Equals": [{"Ref": "EnableConfig"}, "Yes-Enable Config"]},
+        "EnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "Yes-Enable Security Hub"]},
+        "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes-Enable GuardDuty"]},
+        "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No-Do not enable Config"]},
         "EnableSecHubButNotConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableRuleOnly" }]},
-        "EnableSecHubButAndConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableConfig" }]}
+        "EnableSecHubAndConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableConfig" }]}
     },
 
     "Resources": {
@@ -735,7 +735,7 @@
         "ExtraInstance": {
             "Type": "AWS::EC2::Instance",
             "Properties": {
-                "InstanceType": "t2.micro",
+                "InstanceType": "t3.micro",
                 "ImageId": {
                     "Fn::FindInMap": [
                         "AWSRegionAMIMap",
@@ -978,7 +978,7 @@
         },
         "SecHubEnable": {
             "DependsOn" : ["ConfigurationRecorder"],
-            "Condition": "EnableSecHubButAndConfig",
+            "Condition": "EnableSecHubAndConfig",
             "Type": "AWS::SecurityHub::Hub"
         },
         "GDdetector": {
@@ -1053,7 +1053,13 @@
                     ]
                 },
                 "Parameters": {
-                    "DeployBucket": {"Ref": "DeployBucket"}
+                    "DeployBucket": {"Ref": "DeployBucket"},
+                    "InstanceSubnetId": {
+                        "Ref": "PublicSubnet"
+                    },
+                    "DeployVPC": {
+                        "Ref": "VPC"
+                    }
                 }
             }
         },
