@@ -60,17 +60,19 @@ In this section we will add a member account to your Workshop Security Hub Accou
 
 3. Enter **111122223333** (Four 1's, 2's, & 3's) in the **Account ID** field.
 
-4. Click **Add**
+4. Enter a valid formatted **email address**. (for this example it doesn't have to be a real email.)
+
+5. Click **Add**
 
 !!! info "Be sure to hit the tab key to get the Add button to enable.  The email does not need to be the AWS account owner.  The Add workflow allows you to add multiple member account invitations at a time."
 
 ![Security Hub Multi](./images/01-multi-account-add.png)
 
-5. Click **Next**
+6. Click **Next**
 
-6. Click **Invite** in the Status field of the member accounts table.
+7. Click **Invite** in the Status field of the member accounts table.
 
-7. Click **Invite**.
+8. Click **Invite**.
 
 !!! info "At this point a user with the appropriate permissions in the destination AWS account could accept this invite from the master account"
 
@@ -165,7 +167,7 @@ To run the CIS AWS Foundations standard's compliance checks on your environment'
 
 ![Security Standards](./images/01-standards-home.png)
 
-!!! info "Note the Security score should have changed from when you first enabled the CIS standard."
+!!! info "Note the Security score should have changed from when you first enabled the CIS standard.  If your score shows 0% or -, disable and then re-enable the security standards."
 
 2. Click **View Results** for CIS AWS Foundations Benchmark v1.2.0.
 
@@ -181,13 +183,9 @@ To run the CIS AWS Foundations standard's compliance checks on your environment'
 
 5. Scroll down and you will notice there are some **FAILED** and some **PASSED** 
 
-6. Select a **FAILED** Findings.  Notice the definition of CIS 4.1.
+6. Click the **Remediation instructions link**, to open guidance in a new tab.
 
-7. Click the **Remediation instructions link**, to open guidance in a new tab.
-
-!!! info "AWS Security Hub Security Standards provide remediation guidance for each check."
-
-![CIS 4.1](./images/01-standards-cis-4-1-remediation.png)
+!!! info "AWS Security Hub Security Standards provide remediation instructions for each check."
 
 
 Now that you have explored Security Hub's capabilities, you can proceed to the next module.

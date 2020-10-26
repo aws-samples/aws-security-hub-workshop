@@ -122,10 +122,10 @@ For this lab the custom findings have been built to utilize the Generator ID fie
 
 4. Click in the filter field at the top to add additional filters.
 
-5. Choose a filter field of **Company name**.  Choose a filter match type of **EQUALS** and a value of **Personal**.
+5. Choose a filter field of **Company name**.  Choose a filter match type of **IS** and a value of **Personal**.
 ![Config](./images/02-create-custom-insight-company-filter.png)
 
-6. Choose a filter field of **Product name**.  Choose a filter match type of **EQUALS** and a value of **Default**.
+6. Choose a filter field of **Product name**.  Choose a filter match type of **IS** and a value of **Default**.
 
 7. Choose a Grouping of **Group by:**.  In the list of options choose **Generator ID**.  
 ![Config](./images/02-create-custom-insight-grouping.png)
@@ -143,3 +143,5 @@ For the findings in this custom insight you can click on the resource ID links t
 Feel free to play with the grouping for your insight to see other attributes that you can group by and the different views of data it creates.  
 
 ![Config](./images/02-custom-insight-final.png)
+
+!!! info "It's ok if your list of findings is different."  

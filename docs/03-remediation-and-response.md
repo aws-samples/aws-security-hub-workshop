@@ -67,7 +67,7 @@ In this section, you will define an EventBridge rule that will match events (Fin
 
 9.	In the **Event Pattern** window click the **Edit** button. 
 
-10.	Add in the resources line as shown below, making sure to copy in the ARN of **your Custom Event**.  Click **Save**. 
+10.	Add in the resources line as shown below, making sure to paste in the ARN of **your Custom Event**.  Click **Save**. 
 
 !!! info "Note the comma after the bracket before the resources definition."
 
@@ -82,7 +82,7 @@ Copy and paste in the custom event pattern below.  Use the ARN you recorded for 
     "Security Hub Findings - Custom Action" 
   ], 
   "resources": [ 
-     "arn:aws:securityhub:us-east-1:[YOUR-ACCOUNT-ID]:action/custom/IsolateInstance" 
+     "arn:aws:securityhub:[YOUR-REGION]:[YOUR-ACCOUNT-ID]:action/custom/IsolateInstance" 
   ] 
 } 
 ```
@@ -119,7 +119,7 @@ AwsEc2Instance
 
 !!! info "This will open a new tab showing on the EC2 console showing only this affected EC2 instance."
 
-7.	In the Description tab for the instance record the name of the current **security group**.
+7. Click the instance record, and then click the **Security** tab and record the name of the current **security group**.
 
 ![Custom Action](./images/03-security-group.png)
 
@@ -143,7 +143,7 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
 ### Deploy remediation playbooks via CloudFormation
 
-1. Download <a href ='https://github.com/aws-samples/aws-security-hub-response-and-remediation/blob/master/SecurityHub_CISPlaybooks_CloudFormation.yaml'>CloudFormation template </a> from GitHub.
+1. Download <a href ='https://github.com/aws-samples/aws-security-hub-response-and-remediation/blob/master/SecurityHub_CISPlaybooks_CloudFormation.yaml' target="_blank">CloudFormation template </a> from GitHub.
 
 !!! info "If you are not familiar with github downloads: 1. Click RAW 2. Save As... from your browser.  Some browsers will require you to add .yaml at the end of the file name."
 
