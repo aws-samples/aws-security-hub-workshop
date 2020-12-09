@@ -2,11 +2,6 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Deploys an EC2 Instance and bootstraps Cloud Custodian.  It pulls  ",
   "Parameters": {
-    "DeployBucket": {
-            "Description": "Bucket holding assets that get deployed by this template",
-            "MinLength": "1",
-            "Type": "String"
-    },
     "AMZNLinux2AMI": {
       "Description": "The latest AMI ID for Amazon Linux 2",
       "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
@@ -92,7 +87,9 @@
                 {"Ref":"AWS::Region"},
                 "\n",
                 "aws s3 cp s3://",
-                {"Ref":"DeployBucket"},
+                "sa-security-specialist-workshops-",
+                {"Ref":"AWS::Region"},
+                "/security-hub-workshop/cc-policies",
                 "/policies.yaml",
                 " /var/policies.yaml\n"
               ]

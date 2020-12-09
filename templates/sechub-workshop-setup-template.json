@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "re:Inforce Security Hub Workshop Team Template.  Sets up VPC, core EC2 instances, Lambda functions, turns on GuardDuty.",
+    "Description": "Security Hub Workshop master template.  Sets up VPC, core EC2 instances, Lambda functions, turns on GuardDuty, SecurityHub, and Config.",
     "Metadata": {
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [
@@ -10,24 +10,17 @@
                 },
                 {
                     "Label" : {"default": "Workshop Parameters"},
-                    "Parameters": ["DeployBucket", "LatestAMZNLinuxAMI", "LatestAMZNLinux2AMI", "LatestWindows2012R2AMI"]
+                    "Parameters": ["LatestAMZNLinuxAMI", "LatestAMZNLinux2AMI", "LatestWindows2012R2AMI"]
                 }
             ],
             "ParameterLabels": {
                 "EnableGuardDuty": {"default" : "Automatically enable GuardDuty?"},
                 "EnableSecurityHub": {"default" : "Automatically enable SecurityHub?"},
-                "EnableConfig": {"default" : "Automatically enable Config?"},
-                "DeployBucket": {"default": "S3 bucket where workshop deployment assets are staged"}
+                "EnableConfig": {"default" : "Automatically enable Config?"}
             }
         }
     },
     "Parameters": {
-        "DeployBucket": {
-            "Description": "REQUIRED. Enter just the name of the S3 bucket.",
-            "MinLength": "1",
-            "Type": "String",
-            "AllowedPattern" : "[-a-zA-Z0-9]+"
-        },
         "LatestAMZNLinuxAMI": {
             "Description": "DO NOT CHANGE: The latest AMI ID for Amazon Linux",
             "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
@@ -46,17 +39,17 @@
         "EnableGuardDuty": {
             "Description": "Choose Yes if GuardDuty is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
             "Type": "String",
-            "AllowedValues": ["Yes-Enable GuardDuty", "No-Do not enable GuardDuty"]
+            "AllowedValues": ["Yes-Enable GuardDuty", "No-GuardDuty is already enabled"]
         },
         "EnableSecurityHub": {
             "Description": "Choose Yes if SecurityHub is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
             "Type": "String",
-            "AllowedValues": ["Yes-Enable Security Hub", "No-Do not enable Security Hub"]
+            "AllowedValues": ["Yes-Enable Security Hub", "No-Security Hub is already enabled"]
         },
         "EnableConfig": {
             "Description": "Choose Yes if Config is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
             "Type": "String",
-            "AllowedValues": ["Yes-Enable Config", "No-Do not enable Config"]
+            "AllowedValues": ["Yes-Enable Config", "No-Config is already enabled"]
         }
     },
     "Mappings": {
@@ -84,7 +77,7 @@
         "EnableConfig": {"Fn::Equals": [{"Ref": "EnableConfig"}, "Yes-Enable Config"]},
         "EnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "Yes-Enable Security Hub"]},
         "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes-Enable GuardDuty"]},
-        "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No-Do not enable Config"]},
+        "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No-Config is already enabled"]},
         "EnableSecHubButNotConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableRuleOnly" }]},
         "EnableSecHubAndConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableConfig" }]}
     },
@@ -353,8 +346,18 @@
             "Type": "AWS::Lambda::Function",
             "Properties": {
                 "Code": {
-                    "S3Bucket": {"Ref": "DeployBucket"},
-                    "S3Key": "isolate-ec2-security-group.zip"
+                    "S3Bucket": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                }
+                            ]
+                        ]
+                    },
+                    "S3Key": "security-hub-workshop/lambda/isolate-ec2-security-group.zip"
                 },
                 "Description": "Function that swaps the security groups on an EC2 instance.",
                 "FunctionName": "isolate-ec2-security-group",
@@ -408,8 +411,18 @@
             "Type": "AWS::Lambda::Function",
             "Properties": {
                 "Code": {
-                    "S3Bucket": {"Ref": "DeployBucket"},
-                    "S3Key": "sechub-to-slack.zip"
+                    "S3Bucket": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                }
+                            ]
+                        ]
+                    },
+                    "S3Key": "security-hub-workshop/lambda/sechub-to-slack.zip"
                 },
                 "Description": "Function to take a finding from SecHub and send it to Slack",
                 "FunctionName": "sechub-to-slack",
@@ -553,8 +566,18 @@
             "Type": "AWS::Lambda::Function",
             "Properties": {
                 "Code": {
-                    "S3Bucket": {"Ref": "DeployBucket"},
-                    "S3Key": "ec2-non-compliant-ami-sechub.zip"
+                    "S3Bucket": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                }
+                            ]
+                        ]
+                    },
+                    "S3Key": "security-hub-workshop/lambda/ec2-non-compliant-ami-sechub.zip"
                 },
                 "Description": "Function to raise SecHub findings for non-compliant AMIs",
                 "FunctionName": "ec2-non-compliant-ami-sechub",
@@ -956,8 +979,18 @@
             "Type": "AWS::Lambda::Function",
             "Properties": {
                 "Code": {
-                    "S3Bucket": {"Ref": "DeployBucket"},
-                    "S3Key": "enrich-sec-hub-finding.zip"
+                    "S3Bucket": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                }
+                            ]
+                        ]
+                    },
+                    "S3Key": "security-hub-workshop/lambda/enrich-sec-hub-finding.zip"
                 },
                 "Description": "Enrich Finding with EC2 Instance Tags - Automating Security Workshop.",
                 "FunctionName": "enrich-sec-hub-finding",
@@ -992,17 +1025,22 @@
         "GuardDutyTesterTemplate": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
-                "TemplateURL": {
+                "TemplateURL":{
                     "Fn::Join": [
-                        "",
+                            "",
                             [
-                                "https://s3.amazonaws.com/", 
-                                {"Ref": "DeployBucket"},
-                                "/",
-                                "guardduty-tester-template.json"
+                                "https://sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".s3.",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".amazonaws.com/security-hub-workshop/templates/guardduty-tester-template.json"
                             ]
-                    ]
-                },
+                        ]
+                    },
                 "Parameters": {
                     "InstanceSubnetId": {
                         "Ref": "PublicSubnet"
@@ -1024,18 +1062,20 @@
             "Properties": {
                 "TemplateURL": {
                     "Fn::Join": [
-                        "",
+                            "",
                             [
-                                "https://s3.amazonaws.com/", 
-                                {"Ref": "DeployBucket"},
-                                "/",
-                                "inspector_template.json"
+                                "https://sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".s3.",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".amazonaws.com/security-hub-workshop/templates/inspector-template.json"
                             ]
-                    ]
-                },
-                "Parameters": {
-                    "DeployBucket": {"Ref": "DeployBucket"}
-                }
+                        ]
+                    }
             }
         },
         "CloudCustodianTemplate": {
@@ -1043,17 +1083,21 @@
             "Properties": {
                 "TemplateURL": {
                     "Fn::Join": [
-                        "",
+                            "",
                             [
-                                "https://s3.amazonaws.com/", 
-                                {"Ref": "DeployBucket"},
-                                "/",
-                                "cloud-custodian-template.json"
+                                "https://sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".s3.",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".amazonaws.com/security-hub-workshop/templates/cloud-custodian-template.json"
                             ]
-                    ]
-                },
+                        ]
+                    },
                 "Parameters": {
-                    "DeployBucket": {"Ref": "DeployBucket"},
                     "InstanceSubnetId": {
                         "Ref": "PublicSubnet"
                     },
@@ -1068,18 +1112,20 @@
             "Properties": {
                 "TemplateURL": {
                     "Fn::Join": [
-                        "",
+                            "",
                             [
-                                "https://s3.amazonaws.com/", 
-                                {"Ref": "DeployBucket"},
-                                "/",
-                                "secrets-manager-template.json"
+                                "https://sa-security-specialist-workshops-",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".s3.",
+                                {
+                                    "Ref": "AWS::Region"
+                                },
+                                ".amazonaws.com/security-hub-workshop/templates/secrets-manager-template.json"
                             ]
-                    ]
-                },
-                "Parameters": {
-                    "DeployBucket": {"Ref": "DeployBucket"}
-                }
+                        ]
+                    }
             }
         }
     }
