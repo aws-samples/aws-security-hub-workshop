@@ -20,17 +20,17 @@ In order to correctly perform the next step, you must confirm the status of each
 
 3. If you see **Get started** in the center of the page, Config is **not** enabled.
 
-??? info  "Optional Step: Click here for instructions on how to manually enable and set up AWS Config."
+    ??? info  "Optional Step: Click here for instructions on how to manually enable and set up AWS Config."
 
-    1. From the <a href="https://console.aws.amazon.com/config/home" target="_blank">AWS Config dashboard</a>, click **Get Started**
+        1. From the <a href="https://console.aws.amazon.com/config/home" target="_blank">AWS Config dashboard</a>, click **Get Started**
 
-    2. Step 1: Settings - Leave all of the default settings. Click **Next**. This will record all resources supported in this region and create a bucket to log data. It will also create an AWS Config service-linked role granting AWS Config the access recorded for it to function.
+        2. Step 1: Settings - Leave all of the default settings. Click **Next**. This will record all resources supported in this region and create a bucket to log data. It will also create an AWS Config service-linked role granting AWS Config the access recorded for it to function.
 
-    3. Step 2: Rules - Under the field to filter by rule name, click **Select All**. This will highlight the AWS Config rules displayed. Then click **Next**. In your actual environment, you may want to pick and choose which rules are appropriate to enable for your workload.
+        3. Step 2: Rules - Under the field to filter by rule name, click **Select All**. This will highlight the AWS Config rules displayed. Then click **Next**. In your actual environment, you may want to pick and choose which rules are appropriate to enable for your workload.
 
-    4. Step 3: Review - Click **Confirm**.
+        4. Step 3: Review - Click **Confirm**.
 
-###
+    ###
 
 4. From the **AWS Console** click **Services** in the top left corner
 
@@ -38,13 +38,13 @@ In order to correctly perform the next step, you must confirm the status of each
 
 6. If you see **Get started** in the center of the page, GuardDuty is **not** enabled.
 
-??? info  "Optional Step: Click here for instructions on how to manually enable and set up GuardDuty."
+    ??? info  "Optional Step: Click here for instructions on how to manually enable and set up GuardDuty."
 
-    1. From the <a href="https://console.aws.amazon.com/guardduty/home" target="_blank">GuardDuty page</a>, click **Get Started**.
+        1. From the <a href="https://console.aws.amazon.com/guardduty/home" target="_blank">GuardDuty page</a>, click **Get Started**.
 
-    2. On the "Welcome to GuardDuty" screen, click **Enable GuardDuty**.
+        2. On the "Welcome to GuardDuty" screen, click **Enable GuardDuty**.
 
-###
+    ###
 
 7. From the **AWS Console** click **Services** in the top left corner
 
@@ -52,13 +52,13 @@ In order to correctly perform the next step, you must confirm the status of each
 
 9. If you see  **Go to Security Hub** on the right side of the page, Security Hub is **not** enabled.
 
-??? info  "Optional Step: Click here for instructions on how to manually enable and set up AWS Security Hub."
+    ??? info  "Optional Step: Click here for instructions on how to manually enable and set up AWS Security Hub."
 
-    1. From the <a href="https://console.aws.amazon.com/securityhub/home" target="_blank">AWS Security Hub page</a>, click **Go to Security Hub**
+        1. From the <a href="https://console.aws.amazon.com/securityhub/home" target="_blank">AWS Security Hub page</a>, click **Go to Security Hub**
 
-    2. On the "Welcome to AWS Security Hub" screen, check the boxes for all of the Security Standards. Then click **Enable Security Hub**.
+        2. On the "Welcome to AWS Security Hub" screen, check the boxes for all of the Security Standards. Then click **Enable Security Hub**.
 
-###
+    ###
 
 ## Deploy workshop CloudFormation stack
 

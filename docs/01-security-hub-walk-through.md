@@ -22,25 +22,25 @@ The Security Hub Summary page gives you an overview of security and compliance s
 
 3. Select **Security Hub** from the list.
 
-![AWS Console](./images/01-aws-console.png)
+    ![AWS Console](./images/01-aws-console.png)
 
 4. Click **Summary** on the left hand navigation.
 
-![Security Hub Summary](./images/01-sec-hub-summary.png)
+    ![Security Hub Summary](./images/01-sec-hub-summary.png)
 
-!!! info "Security Hub automatically enables subscriptions to GuardDuty and Inspector.  Also collected, but not used in this workshop are findings from Macie, IAM Access Analyzer, and Firewall Manager."
+    !!! info "Security Hub automatically enables subscriptions to GuardDuty and Inspector.  Also collected, but not used in this workshop are findings from Macie, IAM Access Analyzer, and Firewall Manager."
 
 5. Observe the Passed and Failed status of the **CIS AWS Foundations**.  Even though you just enabled it a few minutes ago, partial results of the 43 total checks have been collected.
 
-!!! info "Refresh your browser to see the latest results.  After you enable a security standard, AWS Security Hub begins to run the checks within 2 hours.  After the initial check, the schedule for each control may be either periodic (12 hours) or change-triggered."
+    
 
 6. Scroll down to the graphs under **Insights** (Your graphs maybe different).  Move your mouse over **New findings over time by provider** and observe the 3 sources of findings that Security Hub is already collecting.  (There will be more throughout this workshop)
 
-![Security Hub Insights](./images/01-sec-hub-insights-findings-by-provider.png)
+    ![Security Hub Insights](./images/01-sec-hub-insights-findings-by-provider.png)
 
 7. Scroll down further under **Insights**.  Move your mouse over **Accounts with the most findings (by resource type)** and observe the sorted list of AWS resources that have findings to investigated.
 
-![Security Hub Insights](./images/01-sec-hub-insights-findings-by-resource.png)
+    ![Security Hub Insights](./images/01-sec-hub-insights-findings-by-resource.png)
 
 
 ## Multi Account Hierarchy  
@@ -54,7 +54,7 @@ In this section we will add a member account to your Workshop Security Hub Accou
 
 1. Click **Settings** on the left hand navigation.
 
-![Security Hub Multi](./images/01-multi-account-settings.png)
+    ![Security Hub Multi](./images/01-multi-account-settings.png)
 
 2. Click **+ Add accounts** in the above the empty account table.
 
@@ -64,9 +64,9 @@ In this section we will add a member account to your Workshop Security Hub Accou
 
 5. Click **Add**
 
-!!! info "Be sure to hit the tab key to get the Add button to enable.  The email does not need to be the AWS account owner.  The Add workflow allows you to add multiple member account invitations at a time."
+    !!! info "Be sure to hit the tab key to get the Add button to enable.  The email does not need to be the AWS account owner.  The Add workflow allows you to add multiple member account invitations at a time."
 
-![Security Hub Multi](./images/01-multi-account-add.png)
+    ![Security Hub Multi](./images/01-multi-account-add.png)
 
 6. Click **Next**
 
@@ -74,75 +74,75 @@ In this section we will add a member account to your Workshop Security Hub Accou
 
 8. Click **Invite**.
 
-!!! info "At this point a user with the appropriate permissions in the destination AWS account could accept this invite from the master account"
+    !!! info "At this point a user with the appropriate permissions in the destination AWS account could accept this invite from the master account"
 
-![Security Hub Multi](./images/01-multi-account-invited.png)
+    ![Security Hub Multi](./images/01-multi-account-invited.png)
 
 ## Integrations
-In this section, we will walk through the Security Hub side of enabling a partner integration. Security Hub provides the ability to integrate security findings from AWS services and third-party products.  For third-party products Security Hub gives you the ability to selectively enable the integrations and and provides a link to the configuration instructions related to the third-party product.   
+In this section, we will walk through the Security Hub side of enabling a partner integration. Security Hub provides the ability to integrate security findings from AWS services and third-party products.  For third-party products Security Hub gives you the ability to selectively enable the integrations and provides a link to the configuration instructions related to the third-party product.   
  
 Security Hub detects and consolidates only those security findings from the supported AWS and partner product integrations that are generated after Security Hub is enabled in your AWS accounts. It doesn't retroactively detect and consolidate security findings that were generated before you enabled Security Hub. 
 
 1. Click on **Integrations** from the left-hand navigation pane. 
 
-![Security Hub Integrations](./images/01-integrations-all.png)
+    ![Security Hub Integrations](./images/01-integrations-all.png)
 
 
 2. Scroll through the list of available integrations.  Return to the top and **search** for **Cloud Custodian**.   
 
-![Integrations Search](./images/01-integrations-search-cc.png)
+    ![Integrations Search](./images/01-integrations-search-cc.png)
 
 3. Click **Accept Findings**.  Review the permissions required for the integration. 
 
-![Integrations Enable](./images/01-integrations-enable.png)
+    ![Integrations Enable](./images/01-integrations-enable.png)
 
 4. Click **Accept findings**. 
 
-!!! info "This will put in place a service policy allowing the partner solution to send finding information into this account.   For the purposes of this workshop a Cloud Custodian instance is already set up to automatically send findings to the integration you just enabled.  To use other partner integrations in your account, you would still need to complete the **Configure** step in the partner solution so findings that are created by the partner solution are sent to Security Hub. "
+    !!! info "This will put in place a service policy allowing the partner solution to send finding information into this account.   For the purposes of this workshop a Cloud Custodian instance is already set up to automatically send findings to the integration you just enabled.  To use other partner integrations in your account, you would still need to complete the **Configure** step in the partner solution so findings that are created by the partner solution are sent to Security Hub. "
 
-![Integrations Configure](./images/01-integrations-configure-cc.png)
+    ![Integrations Configure](./images/01-integrations-configure-cc.png)
 
 ## Findings
 Security Hub imports findings AWS security services, third-party product integrations that you enable, and custom integrations you build. Security Hub consumes these findings using a standard findings format called AWS Security Finding Format (ASFF), which eliminates the need for time-consuming data conversion efforts. Security Hub then correlates the findings across integrated products to prioritize the most important ones. For more information about the findings format, see <a href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html" target="_blank">AWS Security Finding Format</a>.  
 
 1. Click on **Findings** from the left-hand navigation pane. 
 
-![Findings List](./images/01-findings-list.png)
+    ![Findings List](./images/01-findings-list.png)
 
 2. Click in the Search bar and select **Severity label** and enter **MEDIUM** (it must be all capitalized). 
 
-![Findings Search](./images/01-findings-search.png)
+    ![Findings Search](./images/01-findings-search.png)
 
 3. Click **Apply**.   
 
 4. Select a **Title** of any finding to see more information.
 
-![Findings Info](./images/01-findings-detail.png)
+    ![Findings Info](./images/01-findings-detail.png)
 
 5. Click the arrow next to **Resources** on bottom right.
 
-![Findings Resources](./images/01-findings-resources.png)
+    ![Findings Resources](./images/01-findings-resources.png)
 
 6. Click the [+] to the right of this findings **Resource Type** (e.g. AWSEc2Instance). this will add it as a filter to the search. 
 
-![Findings Search](./images/01-findings-search-ec2.png)
+    ![Findings Search](./images/01-findings-search-ec2.png)
 
 ## Insights  
 A Security Hub Insight is a collection of related findings defined by an aggregation statement and optional filters. An insight identifies a security area that requires attention and intervention. Security Hub offers several managed (default) insights that you can't modify or delete. You can also create custom insights to track security issues unique to your AWS environment and usage.  
 
 1. Click on **Insights** from the left-hand navigation pane. 
 
-![Insights Summary](./images/01-insights-summary.png)
+    ![Insights Summary](./images/01-insights-summary.png)
 
 2. Filter for insight **severity**.
 
-![Insights Filter](./images/01-insights-filter.png)
+    ![Insights Filter](./images/01-insights-filter.png)
 
 3. Click on **24. Severity by counts of findings**.
 
-![Insights 18](./images/01-insights-24.png)
+    ![Insights 18](./images/01-insights-24.png)
 
-!!! info "The **Group By: Resource Id** in the filter is what makes this an Insight"
+    !!! info "The **Group By: Resource Id** in the filter is what makes this an Insight"
 
 4. Select a **Severity Label** (e.g. Critical) to see the underlying finding(s).
 
@@ -165,27 +165,27 @@ To run the CIS AWS Foundations standard's compliance checks on your environment'
 
 1. Click on **Security standards**.
 
-![Security Standards](./images/01-standards-home.png)
+    ![Security Standards](./images/01-standards-home.png)
 
-!!! info "Note the Security score should have changed from when you first enabled the CIS standard.  If your score shows 0% or -, disable and then re-enable the security standards."
+    !!! info "Note the Security score should have changed from when you first enabled the CIS standard.  If your score shows 0% or -, disable and then re-enable the security standards."
 
 2. Click **View Results** for CIS AWS Foundations Benchmark v1.2.0.
 
-![CIS Standard Results](./images/01-standards-cis-results.png)
+    ![CIS Standard Results](./images/01-standards-cis-results.png)
 
 3. Filter on **4.1**.
 
-![CIS 4.1](./images/01-standards-cis-4-1.png)
+    ![CIS 4.1](./images/01-standards-cis-4-1.png)
 
 4. Click **4.1 Ensure no security groups allow ingress from 0.0.0.0/0**. 
 
-![CIS 4.1](./images/01-standards-cis-4-1-detail.png)
+    ![CIS 4.1](./images/01-standards-cis-4-1-detail.png)
 
 5. Scroll down and you will notice there are some **FAILED** and some **PASSED** 
 
 6. Click the **Remediation instructions link**, to open guidance in a new tab.
 
-!!! info "AWS Security Hub Security Standards provide remediation instructions for each check."
+    !!! info "AWS Security Hub Security Standards provide remediation instructions for each check."
 
 
 Now that you have explored Security Hub's capabilities, you can proceed to the next module.

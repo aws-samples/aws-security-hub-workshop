@@ -32,13 +32,13 @@ This section creates the rule which will catch messages sent from Config rules a
 
 2. Click on the **Create rule** on the right side.
 
-![Custom Action](./images/03-custom-eventbridge.png)
+    ![Custom Action](./images/03-custom-eventbridge.png)
 
 3.  In the Create rule page give your rule a **name** and a **description** that represents the rule's purpose.
 
-![Custom Action](./images/02-custom-create-rule.png)
+    ![Custom Action](./images/02-custom-create-rule.png)
 
-!!! info "All Config Rule output is sent as events to the AWS default event bus.  The define pattern section allows you to identify filters to take a specific action when matched events appear."
+    !!! info "All Config Rule output is sent as events to the AWS default event bus.  The define pattern section allows you to identify filters to take a specific action when matched events appear."
 
 4.  Under Define pattern, select **Event pattern**. 
 
@@ -52,13 +52,13 @@ This section creates the rule which will catch messages sent from Config rules a
 
 9.	Chose the **Specific rule name(s)** radio button and enter **approved-amis-by-id** in the text box.
 
-![Custom Action](./images/02-custom-create-event-source.png)
+    ![Custom Action](./images/02-custom-create-event-source.png)
 
 10. Under Select targets, ensure **Lambda function** is populated in the top drop down and then select **ec2-non-compliant-ami-sechub** lambda function. 
 
-![Custom Action](./images/02-custom-create-confirm.png)
+    ![Custom Action](./images/02-custom-create-confirm.png)
 
-!!! info "**ec2-non-compliant-ami-sechub** is a custom Lambda function created during the setup of this workshop.  Feel free to look at the function to learn more about how it integrates with Security Hub."
+    !!! info "**ec2-non-compliant-ami-sechub** is a custom Lambda function created during the setup of this workshop.  Feel free to look at the function to learn more about how it integrates with Security Hub."
 
 11. Click **Create**.
 
@@ -70,21 +70,21 @@ This section will run the Config rule to generate information on noncompliant re
 
 2. From the Config Dashboard click **Rules** on the left menu.
 
-![Config](./images/02-config-dashboard.png)
+    ![Config](./images/02-config-dashboard.png)
 
-!!! info "Make sure to not choose Rules from the Aggregated view menu.  This requires Config Aggregator and this feature is not used in this workshop."
+    !!! info "Make sure to not choose Rules from the Aggregated view menu.  This requires Config Aggregator and this feature is not used in this workshop."
 
-2. In the Rules page there will be one rule named **approved-amis-by-id**.  Click on the rule name to go to the detail page for that rule.  
+3. In the Rules page there will be one rule named **approved-amis-by-id**.  Click on the rule name to go to the detail page for that rule.  
 
-In the rule detail screen you will see the rule configured with a list of approved AMIs.  There will also be one resource showing as noncompliant. Now that the EventBridge is in place you want to see the noncompliant instances show in Security Hub as a finding.
+    In the rule detail screen you will see the rule configured with a list of approved AMIs.  There will also be one resource showing as noncompliant. Now that the EventBridge is in place you want to see the noncompliant instances show in Security Hub as a finding.
 
-![Config](./images/02-approved-ami-config-rule.png)
+    ![Config](./images/02-approved-ami-config-rule.png)
 
-3. Click on the **Delete results** button.  In the confirmation popup click **Delete**.
+4. Click on the **Delete results** button.  In the confirmation popup click **Delete**.
 
-4.  Click on the refresh button in the **Choose resources in scope** section.  The noncompliant resource section should now be empty.  
+5.  Click on the refresh button in the **Choose resources in scope** section.  The noncompliant resource section should now be empty.  
 
-5. Click the **Re-evaluate** button.  You will get a message that the Config rule is in use and that you need to refresh the page.  At this point you can either refresh the entire page in your browser or use the refresh button in the **Choose resources in scope** section of the page.
+6. Click the **Re-evaluate** button.  You will get a message that the Config rule is in use and that you need to refresh the page.  At this point you can either refresh the entire page in your browser or use the refresh button in the **Choose resources in scope** section of the page.
 
 An instance should now be showing as noncompliant in the **Choose resources in scope** section.  This re-run of the Config rule will trigger the EventBridge rule that is looking for noncompliant resources, resulting in the finding showing in Security Hub.  
 
@@ -98,7 +98,7 @@ An instance should now be showing as noncompliant in the **Choose resources in s
 
 3.	You should see a rule towards the top of the findings list with a **Company** of **Personal** and a **Title** about an unapproved AMI for an instance.  This is the result of your compliance rule and its integration with EventBridge.  Click on the **Title** link for the finding to view more details for your finding.
 
-![Config](./images/02-unapproved-ami-finding.png)
+    ![Config](./images/02-unapproved-ami-finding.png)
 
 You now have a setup in place that helps demonstrate how you can send custom findings into Security Hub using AWS data sources and EventBridge rules.
 
@@ -123,17 +123,17 @@ For this lab the custom findings have been built to utilize the Generator ID fie
 4. Click in the filter field at the top to add additional filters.
 
 5. Choose a filter field of **Company name**.  Choose a filter match type of **IS** and a value of **Personal**.
-![Config](./images/02-create-custom-insight-company-filter.png)
+    ![Config](./images/02-create-custom-insight-company-filter.png)
 
 6. Choose a filter field of **Product name**.  Choose a filter match type of **IS** and a value of **Default**.
 
 7. Choose a Grouping of **Group by:**.  In the list of options choose **Generator ID**.  
-![Config](./images/02-create-custom-insight-grouping.png)
+    ![Config](./images/02-create-custom-insight-grouping.png)
 
 8. Click on **Create insight** to save your custom insight.
 
 9. Give your insight a name that is meaningful to you and click **Create insight**.
-![Config](./images/02-create-custom-insight-name.png)
+    ![Config](./images/02-create-custom-insight-name.png)
 
 10. **Refresh** your browser to reload the screen with Graphs.
 

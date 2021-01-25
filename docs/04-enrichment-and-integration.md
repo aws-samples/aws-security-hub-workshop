@@ -41,10 +41,10 @@ If you want to create a new channel click on the + next to 'Channels' and create
 3. Click on **Create an App** button. 
 
 4.  Fill in the following details for your app:  
-- **App Name**: security-hub-to-slack 
-- **Development Slack Workspace**: Choose the Slack workspace that will receive the Security Hub findings ( this is the one you created)  
+    - **App Name**: security-hub-to-slack 
+    - **Development Slack Workspace**: Choose the Slack workspace that will receive the Security Hub findings ( this is the one you created)  
 
-![SlackApp](./images/04-slack-create-app.png)
+    ![SlackApp](./images/04-slack-create-app.png)
 
 5. Click the **Create App** Button.
 
@@ -56,7 +56,7 @@ If you want to create a new channel click on the + next to 'Channels' and create
  
 9. In the screen asking where your app should post choose the channel that you created in an earlier step.
 
-![SlackAppChannel](./images/04-slack-app-channel-choose.png)
+    ![SlackAppChannel](./images/04-slack-app-channel-choose.png)
 
 10. On the next screen, scroll down to the Webhook URL section and save the URL as you will need it later to complete your setup.
 
@@ -69,20 +69,20 @@ To send information on findings that are in Security Hub to Slack a custom actio
 
 2. Click on **Settings**. 
 
-![ChatOps](./images/04-chatops-sechub.png)
+    ![ChatOps](./images/04-chatops-sechub.png)
 
 3. Click **Custom Actions**.
 
-![ChatOps](./images/04-chatops-sechub-settings.png)
+    ![ChatOps](./images/04-chatops-sechub-settings.png)
 
 4. Select Create Custom Action. Fill in: 
-- **Action Name** as ‘Send to Slack’, 
-- **Description** as ‘Custom action to send security findings to Slack.’ 
-- **Custom Action ID** as shslaction 
+    * **Action Name** as ‘Send to Slack’, 
+    * **Description** as ‘Custom action to send security findings to Slack.’ 
+    * **Custom Action ID** as shslaction 
 
 5. Click **Create custom action**.
 
-![ChatOps](./images/04-chatops-sechub-create.png)
+  ![ChatOps](./images/04-chatops-sechub-create.png)
 
 
 ### Create a EventBridge Rule for Security Hub Custom Actions to Lambda
@@ -93,13 +93,13 @@ Taking action on a finding in Security Hub results in the information for the fi
 
 2. Click on the **Create rule** on the right side.
 
-![Custom Action](./images/03-custom-eventbridge.png)
+    ![Custom Action](./images/03-custom-eventbridge.png)
 
 3. In the Create rule page give your rule a **name** and a **description** that represents the rule's purpose.
 
-![ChatOps](./images/04-chatops-custom-create-rule.png)
+    ![ChatOps](./images/04-chatops-custom-create-rule.png)
 
-!!! info "All Security Hub findings are sent as events to the AWS default event bus.  The define pattern section allows you to identify filters to take a specific action when matched events appear."
+    !!! info "All Security Hub findings are sent as events to the AWS default event bus.  The define pattern section allows you to identify filters to take a specific action when matched events appear."
 
 4. Under Define pattern, select **Event pattern**. 
 
@@ -111,37 +111,38 @@ Taking action on a finding in Security Hub results in the information for the fi
 
 8. In the drop down for **Event type** choose **Security Hub Finding – Custom Action**.
 
-![ChatOps](./images/03-custom-create-event-source.png)
+    ![ChatOps](./images/03-custom-create-event-source.png)
 
 9.	In the **Event Pattern** window click the **Edit** button. 
 
 10.	Add in the resources line as shown below, making sure to copy in the ARN of **your Custom Event**.  Click **Save**. 
 
-!!! info "Note the comma after the bracket before the resources definition."
+    !!! info "Note the comma after the bracket before the resources definition."
 
-Copy and paste in the custom event pattern below.  Use the ARN you recorded for your Security Hub Custom Action 
-	
-```json
-{ 
-"source": [ 
-    "aws.securityhub" 
-  ], 
-  "detail-type": [ 
-    "Security Hub Findings - Custom Action" 
-  ], 
-  "resources": [ 
-     "arn:aws:securityhub:us-east-1:[YOUR-ACCOUNT-ID]:action/custom/shslaction" 
-  ] 
-} 
-```
+    Copy and paste in the custom event pattern below.  Use the ARN you recorded for your Security Hub Custom Action 
+    
+    <pre>
+    ```
+    { 
+    "source": [ 
+        "aws.securityhub" 
+      ], 
+      "detail-type": [ 
+        "Security Hub Findings - Custom Action" 
+      ], 
+      "resources": [ 
+         "arn:aws:securityhub:us-east-1:[YOUR-ACCOUNT-ID]:action/custom/shslaction" 
+      ] 
+    } 
+    ```
 
-![ChatOps](./images/04-chatops-create-event-pattern-updated.png)
+    ![ChatOps](./images/04-chatops-create-event-pattern-updated.png)
 
 11. Under Select targets, select **Lambda function**.
 
 12. Then select the **sechub-to-slack** lambda function. 
 
-![Custom Action](./images/04-slack-lambda-create-confirm.png)
+    ![Custom Action](./images/04-slack-lambda-create-confirm.png)
 
 13. Click **Create**.
 
@@ -153,10 +154,10 @@ The last step in this setup is to update the environment variables of your lambd
 2. In the list of functions choose the **sechub-to-slack** function.
 
 3. Scroll down to environment variables and click **Edit**   Fill in:
-- **slackChannel:** the value from the Slack channel you created earlier in this workshop.
-- **webHookUrl:** URL of the webhook for the Slack setup you created earlier in this workshop.
+    * **slackChannel:** the value from the Slack channel you created earlier in this workshop.
+    * **webHookUrl:** URL of the webhook for the Slack setup you created earlier in this workshop.
 
-![Lambda Slack Env](./images/04-slack-lambda-env.png)
+    ![Lambda Slack Env](./images/04-slack-lambda-env.png)
 
 4. Click **Save**.
 
@@ -170,13 +171,13 @@ At this point, you are now able to start using a Security Hub custom action to s
 
 3.	Choose any one of the findings and then select the **Send to Slack** custom action from the **Actions** drop down. A success message appears indicating the event was sent to CloudWatch events. 
 
-![ChatOps](./images/04-chatops-slack-send.png)
+    ![ChatOps](./images/04-chatops-slack-send.png)
 
-!!! info "Your custom actions drop down list will have more options than displayed here."
+    !!! info "Your custom actions drop down list will have more options than displayed here."
 
 4.	In **Slack**, navigate to your channel to see the finding that was sent from Security Hub. 
 
-![ChatOps](./images/04-chatops-slack-confirm.png)
+    ![ChatOps](./images/04-chatops-slack-confirm.png)
 
 ## Enable Custom Action to add Tag data as Notes to Security Hub Findings
 
@@ -194,7 +195,7 @@ In this section you will follow the same pattern of creating a Security Hub cust
 
 5.	Enter an Action **Name** (Displayed in the Security Hub Console), **Action Description**, and an **Action ID** of "getTags".
 
-![Enrich](./images/04-enrich-custom-action-create.png)
+    ![Enrich](./images/04-enrich-custom-action-create.png)
 
 6. Click **Create custom action**. 
 
@@ -224,24 +225,25 @@ In this section you will follow the same pattern of creating a Security Hub cust
 
 10.	Add in the resources line as shown below, making sure to copy in the ARN of **your Custom Event**.  Click **Save**. 
 
-!!! info "Note the comma after the bracket before the resources definition."
+    !!! info "Note the comma after the bracket before the resources definition."
 
-Copy and paste in the custom event pattern below.  Use the ARN you recorded for your Security Hub Custom Action 
-	
-```json
-{ 
-"source": [ 
-    "aws.securityhub" 
-  ], 
-  "detail-type": [ 
-    "Security Hub Findings - Custom Action" 
-  ], 
-  "resources": [ 
-     "arn:aws:securityhub:us-east-1:[YOUR-ACCOUNT-ID]:action/custom/getTags" 
-  ] 
-} 
-```
-![Enrich](./images/04-enrich-create-event-pattern-updated.png)
+    Copy and paste in the custom event pattern below.  Use the ARN you recorded for your Security Hub Custom Action 
+      
+    <pre>
+    ```
+    { 
+    "source": [ 
+        "aws.securityhub" 
+      ], 
+      "detail-type": [ 
+        "Security Hub Findings - Custom Action" 
+      ], 
+      "resources": [ 
+         "arn:aws:securityhub:us-east-1:[YOUR-ACCOUNT-ID]:action/custom/getTags" 
+      ] 
+    } 
+    ```
+    ![Enrich](./images/04-enrich-create-event-pattern-updated.png)
 
 11. Under Select targets, ensure **Lambda function** is populated in the top drop down and then select **enrich-sec-hub-finding** lambda function. 
 
@@ -257,15 +259,11 @@ Copy and paste in the custom event pattern below.  Use the ARN you recorded for 
 
 4.	Add **AwsEc2Instance** (case sensitive) after EQUALS and click **Apply**.
 
-```
-AwsEc2Instance
-```
-
-![Enrich](./images/04-enrich-sechub-filter.png)
+    ![Enrich](./images/04-enrich-sechub-filter.png)
 
 5.	**Click the Title** of the first finding in the list and observe that there are currently no **notes** in this finding.
 
-![Enrich](./images/04-enrich-finding-before.png)
+    ![Enrich](./images/04-enrich-finding-before.png)
 
 6.	Click the **check box** to the left of this same finding.
 
@@ -275,7 +273,7 @@ AwsEc2Instance
 
 9.	**Click the Title** of the first finding again, and this time view the Notes.
 
-![Enrich](./images/04-enrich-finding-after.png)
+    ![Enrich](./images/04-enrich-finding-after.png)
 
 !!! question "What other data would you add to findings ad-hoc or automatically?"
 
