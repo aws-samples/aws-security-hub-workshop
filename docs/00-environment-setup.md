@@ -64,7 +64,7 @@ In order to correctly perform the next step, you must confirm the status of each
 
 To configure the workshop you will need to deploy the master workshop template.
 
-!!! info "Before you deploy the CloudFormation template feel free to view it <a href="https://github.com/aws-samples/aws-security-hub-workshop/blob/master/templates/sechub-workshop-setup-template.json" target="_blank">here</a href>."
+!!! info "Before you deploy the CloudFormation template feel free to view it <a href="https://github.com/aws-samples/aws-security-hub-workshop/blob/master/templates/sechub-workshop-setup-template.json" target="_blank" rel="noopener noreferrer">here</a href>."
 
 Region| Deploy
 ------|-----
