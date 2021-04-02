@@ -44,9 +44,13 @@ The Security Hub Summary page gives you an overview of security and compliance s
 
 
 ## Multi Account Hierarchy  
-You can invite other AWS accounts to enable AWS Security Hub and become associated with your AWS account. If the owner of the account that you invite enables Security Hub and then accepts the invitation, your account is designated as the master Security Hub account, and the invited accounts become associated as member accounts. When the invited account accepts the invitation, permission is granted to the master account to view the findings in the member account. The master account can also perform actions on findings in a member account.
+An AWS Security Hub administrator account can view data from and manage configuration for its member accounts. The Security Hub administrator-member relationship is established differently based on whether the accounts belong to an organization in AWS Organizations. 
 
-Security Hub supports up to 1000 member accounts per master, account per Region. The master-member account association is created in only the one Region that the invitation was sent from. You must enable Security Hub in each Region that you want to use it in, and then invite each account to associate as a member account in each Region.  
+
+
+If you are integrated with Organizations, the organization management account designates the Security Hub administrator account, which becomes the administrator account.  The Security Hub administrator account automatically has access to all of the accounts in the organization. The Security Hub administrator account determines which accounts in the organization to enable as member accounts. These member accounts cannot disassociate themselves from the Security Hub administrator account.
+
+If you are not integrated with Organizations, member accounts accept an invitation from a administrator account. A Security Hub administrator account for an organization can also invite member accounts that are not part of the organization.  Accounts that are added by invitation can disassociate themselves from their administrator account. 
 
 In this section we will add a member account to your Workshop Security Hub Account.  These instructions use sample information and will not actually setup the Multi-Account Hierarchy. 
 
@@ -56,15 +60,13 @@ In this section we will add a member account to your Workshop Security Hub Accou
 
     ![Security Hub Multi](./images/01-multi-account-settings.png)
 
-2. Click **+ Add accounts** in the above the empty account table.
+2. Click **+ Add accounts** above the empty account table.
 
 3. Enter **111122223333** (Four 1's, 2's, & 3's) in the **Account ID** field.
 
 4. Enter a valid formatted **email address**. (for this example it doesn't have to be a real email.)
 
 5. Click **Add**
-
-    !!! info "Be sure to hit the tab key to get the Add button to enable.  The email does not need to be the AWS account owner.  The Add workflow allows you to add multiple member account invitations at a time."
 
     ![Security Hub Multi](./images/01-multi-account-add.png)
 

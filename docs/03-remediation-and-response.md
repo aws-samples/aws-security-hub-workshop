@@ -208,7 +208,7 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
 21. Click the three vertical dots to expand associated links to Config.
 
-22. Click the button for **Config Rule**.
+22. Click the link for **Config Rule**.
 
     ![remediation](./images/03-remediation-cis28-rule.png)
 
