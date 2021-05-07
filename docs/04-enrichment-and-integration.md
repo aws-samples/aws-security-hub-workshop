@@ -153,13 +153,15 @@ The last step in this setup is to update the environment variables of your lambd
 
 2. In the list of functions choose the **sechub-to-slack** function.
 
-3. Scroll down to environment variables and click **Edit**   Fill in:
+3. Click the **Configuration** tab.
+
+4. Scroll down to environment variables and click **Edit**   Fill in:
     * **slackChannel:** the value from the Slack channel you created earlier in this workshop.
     * **webHookUrl:** URL of the webhook for the Slack setup you created earlier in this workshop.
 
     ![Lambda Slack Env](./images/04-slack-lambda-env.png)
 
-4. Click **Save**.
+5. Click **Save**.
 
 ### Testing the Integration between Security Hub and Slack  
 
