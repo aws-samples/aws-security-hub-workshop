@@ -3,14 +3,19 @@ This workshop's procedures use multiple Lambda functions, EC2 instances, and oth
 
 **Agenda**
  
-1. Determine if have already enabled Security Hub, Config, and GuardDuty - 5 min
+1. Determine status of Security Hub, Config, and GuardDuty - 5 min
 2. Deploy workshop CloudFormation stack  - 10 min
 
 
-## Determine if you have enabled Security Hub, Config, and GuardDuty.
-Config, Security Hub, and GuardDuty must be enabled in the account and region you are conducting this workshop in.  The CloudFormation template that sets up the workshop has the option to enable all of this for you.  If you choose for that to happen, and these services are already enabled, the template will fail.
+## Determine status of Security Hub, Config, and GuardDuty.
 
-In order to correctly perform the next step, you must confirm the status of each of these services.  If you already know the status, such as a fresh account provided by AWS for this workshop, proceed to the next section.
+### Skip this section if you're using a new account
+
+If you are using a new AWS account, then you can skip this section and proceed to [Deploy workshop CloudFormation stack](#deploy-workshop-cloudformation-stack). That section uses a CloudFormation template to automatically enable AWS Config, AWS SecurityHub, and Amazon GuardDuty services in the appropriate AWS Region.
+
+### Check the status of the services if reusing an existing account
+
+If you are using an AWS account in which these services may have already been enabled, use the following instructions to determine the status of these services so that you can properly configure the CloudFormation template in the next section.
 
 ![AWS Console](./images/01-aws-console.png)
 
@@ -74,6 +79,8 @@ US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/hom
 1. Click the **Deploy to AWS** button above.  This will automatically take you to the console to run the template, click Next to get to the Specify Details page. 
 
 2. On the **Specify Details** section enter the necessary parameters as shown below. 
+
+If you're using a new AWS account, select "Yes-Enable..." for GuardDuty, SecurityHub, Config to have the CloudFormation template enable these services.
 
     | Parameter | Value  |
     |---|---|
