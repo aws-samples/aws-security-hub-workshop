@@ -6,17 +6,19 @@
             "ParameterGroups": [
                 {
                     "Label" : {"default": "Workshop Service Configuration"},
-                    "Parameters": ["EnableGuardDuty", "EnableSecurityHub", "EnableConfig"]
+                    "Parameters": ["EnableGuardDuty", "EnableSecurityHub", "EnableConfig", "EnableIAMAA"]
                 },
                 {
                     "Label" : {"default": "Workshop Parameters"},
-                    "Parameters": ["LatestAMZNLinuxAMI", "LatestAMZNLinux2AMI", "LatestWindows2012R2AMI"]
+                    "Parameters": ["CreatePublicResourcePolicies", "LatestAMZNLinuxAMI", "LatestAMZNLinux2AMI", "LatestWindows2012R2AMI"]
                 }
             ],
             "ParameterLabels": {
                 "EnableGuardDuty": {"default" : "Automatically enable GuardDuty?"},
                 "EnableSecurityHub": {"default" : "Automatically enable SecurityHub?"},
-                "EnableConfig": {"default" : "Automatically enable Config?"}
+                "EnableConfig": {"default" : "Automatically enable Config?"},
+                "EnableIAMAA": {"default" : "Automatically enable IAM Access Analyzer?"},
+                "CreatePublicResourcePolicies": {"default": "Create resources with public policies for IAM Access Analyzer detections?"}
             }
         }
     },
@@ -50,6 +52,16 @@
             "Description": "Choose Yes if Config is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
             "Type": "String",
             "AllowedValues": ["Yes-Enable Config", "No-Config is already enabled"]
+        },
+        "EnableIAMAA": {
+            "Description": "Choose Yes if IAM Access Analyzer is not yet enabled in the account and region this template will be deployed to, otherwise choose No.",
+            "Type": "String",
+            "AllowedValues": ["Yes-Enable IAM AA", "No-IAM AA is already enabled"]
+        },
+        "CreatePublicResourcePolicies": {
+            "Description": "Choose Yes if resources with public policies should be created for IAM Access Analyzer detections, otherwise choose No.",
+            "Type": "String",
+            "AllowedValues": ["Yes-Create public policies", "No-Dont create public policies"]
         }
     },
     "Mappings": {
@@ -76,10 +88,13 @@
     "Conditions": {
         "EnableConfig": {"Fn::Equals": [{"Ref": "EnableConfig"}, "Yes-Enable Config"]},
         "EnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "Yes-Enable Security Hub"]},
+        "NoEnableSecurityHub": {"Fn::Equals": [{"Ref": "EnableSecurityHub"}, "No-Security Hub is already enabled"]},
         "EnableGuardDuty": {"Fn::Equals": [{"Ref": "EnableGuardDuty"}, "Yes-Enable GuardDuty"]},
         "EnableRuleOnly": {"Fn::Equals": [{"Ref": "EnableConfig"}, "No-Config is already enabled"]},
         "EnableSecHubButNotConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableRuleOnly" }]},
-        "EnableSecHubAndConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableConfig" }]}
+        "EnableSecHubAndConfig" : {"Fn::And": [{"Condition": "EnableSecurityHub"}, {"Condition": "EnableConfig" }]},
+        "EnableIAMAA": {"Fn::Equals": [{"Ref": "EnableIAMAA"}, "Yes-Enable IAM AA"]},
+        "CreatePublicPolicies" : {"Fn::Equals": [{"Ref": "CreatePublicResourcePolicies"}, "Yes-Create public policies"]}
     },
 
     "Resources": {
@@ -588,6 +603,11 @@
                         "AMIComplianceLambdaRole",
                         "Arn"
                     ]
+                },
+                "MemorySize": 128,
+                "Timeout": 30,
+                "TracingConfig": {
+                    "Mode": "Active"
                 }
             }
         },
@@ -1001,16 +1021,21 @@
                         "EnrichSecHubLambdaRole",
                         "Arn"
                     ]
+                },
+                "MemorySize": 128,
+                "Timeout": 30,
+                "TracingConfig": {
+                    "Mode": "Active"
                 }
             }
         },
         "SecHubEnable1": {
-            "DependsOn" : ["AMIConfigRule1"],
+            "DependsOn" : "AMIConfigRule1",
             "Condition": "EnableSecHubButNotConfig",
             "Type": "AWS::SecurityHub::Hub"
         },
         "SecHubEnable": {
-            "DependsOn" : ["ConfigurationRecorder"],
+            "DependsOn" : "ConfigurationRecorder",
             "Condition": "EnableSecHubAndConfig",
             "Type": "AWS::SecurityHub::Hub"
         },
@@ -1020,6 +1045,62 @@
             "Properties": {
                 "Enable": true,
                 "FindingPublishingFrequency": "FIFTEEN_MINUTES"
+            }
+        },
+        "IAMAAEnable": {
+            "Condition": "EnableIAMAA",
+            "Type": "AWS::AccessAnalyzer::Analyzer",
+            "Properties": {
+                "Type": "ACCOUNT",
+                "ArchiveRules": [
+                    {
+                        "Filter": [
+                            {
+                                "Contains": [
+                                 "EEOverlordRole",
+                                 "EEOrganizations",
+                                 "OpsRole"
+                                ],
+                                "Property": "resource" 
+                            }
+                        ],
+                        "RuleName": "ArchiveEEAccess"
+                    }
+                ]
+            }
+        },
+        "WkshpIngestionQueue":  {
+            "Type" : "AWS::SQS::Queue",
+            "DependsOn": "GuardDutyTesterTemplate",
+            "Condition": "CreatePublicPolicies",
+            "Properties": {
+                "QueueName" : "IngestionQueue"
+                }
+        },
+        "WkshpQueuePolicy": {
+            "DependsOn": "WkshpIngestionQueue",
+            "Condition": "CreatePublicPolicies",
+            "Type": "AWS::SQS::QueuePolicy",
+            "Properties": {
+                "Queues": [{"Ref": "WkshpIngestionQueue"}],
+                "PolicyDocument": {
+                    "Statement": [
+                        {
+                        "Sid": "IngestionQueueAccess",
+                        "Effect": "Allow",
+                        "Principal": {
+                            "AWS": "*"
+                        },
+                        "Action": "sqs:SendMessage",
+                        "Resource": {
+                            "Fn::GetAtt": [
+                            "WkshpIngestionQueue",
+                            "Arn"
+                            ]
+                        }
+                    }   
+                    ]
+                }
             }
         },
         "GuardDutyTesterTemplate": {

@@ -41,7 +41,7 @@ def enrichEc2Type(Ec2Finding):
     ec2client = boto3.client('ec2')
     
     #extract instance ID from the sec hub finding event
-    id_arn = Ec2Finding["detail"]["findings"][0]["Resources"][0]['Id']
+    id_arn = Ec2Finding["Resources"][0]['Id']
     instance_id = id_arn.split("/")[1]
 
     #describe instances
@@ -69,21 +69,23 @@ def lambda_handler(event, context):
     #log the event
     logger.info(event)
     
-    #determine and log this Finding's ID
-    ENRICHMENT_FINDING_ID = event["detail"]["findings"][0]["Id"]
-    logger.info("Finding ID: " + ENRICHMENT_FINDING_ID)
+    for findings in event['detail']['findings']:
+        
+        #determine and log this Finding's ID
+        ENRICHMENT_FINDING_ID = findings["Id"]
+        logger.info("Finding ID: " + ENRICHMENT_FINDING_ID)
+        
     
-    #determine and log this Finding's resource type
-    resourceType = event["detail"]["findings"][0]["Resources"][0]["Type"]
-    logger.info("Resource Type is: " + resourceType)
+        #determine and log this Finding's resource type
+        resourceType = findings["Resources"][0]["Type"]
+        logger.info("Resource Type is: " + resourceType)
     
-    #if the target resource is EC2 update the enrichment text with EC2 Tags
-    if resourceType == "AwsEc2Instance":
-        ENRICHMENT_AUTHOR = "SecHubEnrich - EC2 Tags"
-        ENRICHMENT_TEXT = enrichEc2Type(event)
+        #if the target resource is EC2 update the enrichment text with EC2 Tags
+        if resourceType == "AwsEc2Instance":
+            ENRICHMENT_AUTHOR = "SecHubEnrich - EC2 Tags"
+            ENRICHMENT_TEXT = enrichEc2Type(findings)
     
-    
-    postEnrichmentNote(ENRICHMENT_AUTHOR, ENRICHMENT_TEXT, ENRICHMENT_FINDING_ID)
+            postEnrichmentNote(ENRICHMENT_AUTHOR, ENRICHMENT_TEXT, ENRICHMENT_FINDING_ID)
 
     
     return {

@@ -44,7 +44,7 @@ def lambda_handler(event, context):
         		"Label": "MEDIUM"
     		},
     		"Resources": [{
-        		"Type": "AWS::EC2::Instance",
+        		"Type": "AwsEc2Instance",
         		"Id": f"arn:aws:ec2:{region}:{account_id}:instance/{resource_id}"
     		}]
 		}]

@@ -140,63 +140,52 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
 ### Deploy remediation playbooks via CloudFormation
 
-1. Download <a href ='https://github.com/aws-samples/aws-security-hub-response-and-remediation/blob/master/SecurityHub_CISPlaybooks_CloudFormation.yaml' target="_blank">CloudFormation template </a> from GitHub.
+!!! info "Before you deploy the CloudFormation template feel free to view it <a href="https://github.com/aws-samples/aws-security-hub-response-and-remediation/blob/master/SecurityHub_CISPlaybooks_CloudFormation.yaml" target="_blank" rel="noopener noreferrer">here</a href>."
 
-    !!! info "If you are not familiar with github downloads: 1. Click RAW 2. Save As... from your browser.  Some browsers will require you to add .yaml at the end of the file name."
+Region| Deploy
+------|-----
+US West 2 (Oregon) | <a href="https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?stackName=SecurityHub-CISPlaybooks&templateURL=https://sa-security-specialist-workshops-us-west-2.s3-us-west-2.amazonaws.com/security-hub-workshop/templates/SecurityHub_CISPlaybooks_CloudFormation.yaml" target="_blank">![Deploy CIS remediation playbook in us-west-2](./images/deploy-to-aws.png)</a>|
+US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=SecurityHub-CISPlaybooks&templateURL=https://sa-security-specialist-workshops-us-east-1.s3.amazonaws.com/security-hub-workshop/templates/SecurityHub_CISPlaybooks_CloudFormation.yaml" target="_blank">![Deploy CIS remediation playbook in us-east1](./images/deploy-to-aws.png)</a>
 
-2. Navigate to **Cloudformation Stacks** console.
+1. Click the **Deploy to AWS** button above, for the region you are performing the workshop in.  This will automatically take you to the console to submit the template.
 
-3. Choose **Create stack** and then **With new resources (standard)**.
+2. Scroll to the bottom of the **Quick create stack** screen and check the box for **I acknowledge that AWS CloudFormation might create IAM resources.**
 
-4. Click **Upload a template file**
+3. Click **Create stack**.
 
-5. Click **Choose file** and select **"SecurityHub_CISPlaybooks_CloudFormation.yaml"** that you downloaded in the previous step.
+    !!! info "Please wait a moment for the creation to complete or progress to start, then proceed to Step 4."
 
-6. Click **Next**.
-
-7. provide a **Stack name**, for example **SecurityHub-CISPlaybooks**.
-
-8. Click **Next**.
-
-9. Click **Next**.
-
-10. scroll to the bottom and check the box for **I acknowledge that AWS CloudFormation might create IAM resources.**
-
-11. Click **Create stack**.
-
-    !!! info "Please wait a moment for the creation to complete or progress to start, then proceed to Step 11."
-
-12. Navigate to the **Resources** tab of this CloudFormation stack and observe the resources created for each rule.
+4. Navigate to the **Resources** tab of this CloudFormation stack and observe the resources created for each rule.
 
     ![remediation](./images/03-remediation-playbook-resources.png)
 
-13. Type "**CIS28**" in Search resources bar. 
+5. Type "**CIS28**" in Search resources bar. 
 
     ![remediation](./images/03-remediation-playbook-cis28.png)
 
-    !!! info "Note the resources created for this remediation action are a EventBridge Rule that connects the custom action to the Lambda function, an IAM role and permission for Lambda to assume and take the needed actions, A Lambda function with the code to execute the response, and a Security Hub custom action to initiate the remediation."
+    !!! info "Note the resources created for this remediation action are a Security Hub custom action to initiate the remediation, a Lambda function with the code to execute the response, an IAM role and permission for Lambda to assume and take the needed actions, and an EventBridge Rule that connects the custom action to the Lambda function."
 
-14. Navigate to the **Security Hub** dashboard. 
+6. Navigate to the **Security Hub** dashboard. 
 
-15. In the left-hand navigation pane choose **Security Standards**.
+7. In the left-hand navigation pane choose **Security Standards**.
 
-16. Under CIS AWS Foundations Benchmark v1.2.0 click **View results**.
+8. Under CIS AWS Foundations Benchmark v1.2.0 click **View results**.
 
     ![remediation](./images/03-remediation-security-standards.png)
 
-17. Type "**2.8**" in the Filter controls bar.
+9. Type "**2.8**" in the Filter controls bar.
 
     !!! info "AWS KMS enables customers to rotate the backing key, which is key material stored in AWS KMS and is tied to the key ID of the CMK. It's the backing key that is used to perform cryptographic operations such as encryption and decryption. Automated key rotation currently retains all previous backing keys so that decryption of encrypted data can take place transparently."
 
     !!! info "We recommend that you enable CMK key rotation. Rotating encryption keys helps reduce the potential impact of a compromised key because data encrypted with a new key can't be accessed with a previous key that might have been exposed."
 
-18. Click the title for "CIS 2.8 Ensure rotation for customer created CMKs is enabled"
+10. Click the title for "CIS 2.8 Ensure rotation for customer created CMKs is enabled"
 
     ![remediation](./images/03-remediation-cis28-check.png)
 
-19. Click the **check box** to select the finding.
+11. Click the **check box** to select the finding.
 
-20. Click the **Actions** drop down on the right side and select **CIS 2.8 RR**.
+12. Click the **Actions** drop down on the right side and select **CIS 2.8 RR**.
 
     !!! info "This triggers the remediation Lambda function associated with resolving CIS 2.8.  Notice the list of available actions you have for CIS created from the template deployment."
 
@@ -206,16 +195,16 @@ You can read more in <a href = 'https://aws.amazon.com/blogs/security/automated-
 
     !!! info "After the green bar has confirmed the execution of the custom check, we need to manually initiate a re-evaluation in Config in order to resolve the finding in Security Hub."
 
-21. Click the three vertical dots to expand associated links to Config.
+13. Click the three vertical dots to expand associated links to Config.
 
-22. Click the link for **Config Rule**.
+14. Click the link for **Config Rule**.
 
     ![remediation](./images/03-remediation-cis28-rule.png)
 
 
-23. Click **Re-evaluate** at the top of the page.
+15. Click **Re-evaluate** at the top of the page.
 
-24. Click the browser tab to return to the filtered findings for CIS 2.8 and refresh your browser. The findings should now have a status of PASSED.
+16. Click the browser tab to return to the filtered findings for CIS 2.8 and refresh your browser. The findings should now have a status of PASSED.
 
     ![remediation](./images/03-remediation-cis28-passed.png)
 
