@@ -3,22 +3,20 @@ This workshop's procedures use multiple Lambda functions, EC2 instances, and oth
 
 **Agenda**
  
-1. Determine if have already enabled Security Hub, Config, and GuardDuty - 5 min
+1. Determine if have already enabled Security Hub, Config, GuardDuty, and IAM Access Analyzer - 5 min
 2. Deploy workshop CloudFormation stack  - 10 min
 
 
-## Determine if you have enabled Security Hub, Config, and GuardDuty.
-Config, Security Hub, and GuardDuty must be enabled in the account and region you are conducting this workshop in.  The CloudFormation template that sets up the workshop has the option to enable all of this for you.  If you choose for that to happen, and these services are already enabled, the template will fail.
+## Determine if you have enabled Security Hub, Config, GuardDuty, and IAM Access Analyzer.
+Config, Security Hub, GuardDuty, and IAM Access Analyzer must be enabled in the account and region you are conducting this workshop in.  The CloudFormation template that sets up the workshop has the option to enable all of this for you.  If you choose for that to happen, and these services are already enabled, the template will fail.
 
-In order to correctly perform the next step, you must confirm the status of each of these services.  If you already know the status, such as a fresh account provided by AWS for this workshop, proceed to the next section.
+In order to correctly perform the next step, you must confirm the status of each of these services.  If you already know the status, such as a fresh account provided by AWS for this workshop, proceed to the [Deploy workshop CloudFormation stack](#deploy-workshop-cloudformation-stack) section.
 
 ![AWS Console](./images/01-aws-console.png)
 
-1. From the **AWS Console** click **Services** in the top left corner
+1. In the **AWS Console** unified search box enter **Config** and select **Config** from the **Services** section..
 
-2. Type **Config** in the search bar, and select **Config** from the list.
-
-3. If you see **Get started** in the center of the page, Config is **not** enabled.
+2. If you see **Get started** in the center of the page, Config is **not** enabled.
 
     ??? info  "Optional Step: Click here for instructions on how to manually enable and set up AWS Config."
 
@@ -32,11 +30,9 @@ In order to correctly perform the next step, you must confirm the status of each
 
     ###
 
-4. From the **AWS Console** click **Services** in the top left corner
+3. In the **AWS Console** unified search box enter **GuardDuty** and select **GuardDuty** from the **Services** section.
 
-5. Type **GuardDuty** in the search bar, and select **GuardDuty** from the list.
-
-6. If you see **Get started** in the center of the page, GuardDuty is **not** enabled.
+4. If you see **Get started** in the center of the page, GuardDuty is **not** enabled.
 
     ??? info  "Optional Step: Click here for instructions on how to manually enable and set up GuardDuty."
 
@@ -46,11 +42,9 @@ In order to correctly perform the next step, you must confirm the status of each
 
     ###
 
-7. From the **AWS Console** click **Services** in the top left corner
+5. In the **AWS Console** unified search box enter **Security Hub** and select **Security Hub** from the **Services** section.
 
-8. Type **Security Hub** in the services search bar, and select **Security Hub** from the list.
-
-9. If you see  **Go to Security Hub** on the right side of the page, Security Hub is **not** enabled.
+6. If you see  **Go to Security Hub** on the right side of the page, Security Hub is **not** enabled.
 
     ??? info  "Optional Step: Click here for instructions on how to manually enable and set up AWS Security Hub."
 
@@ -59,6 +53,20 @@ In order to correctly perform the next step, you must confirm the status of each
         2. On the "Welcome to AWS Security Hub" screen, check the boxes for all of the Security Standards. Then click **Enable Security Hub**.
 
     ###
+
+7. In the **AWS Console** unified search box enter **IAM** and select **IAM** from the **Services** section.
+
+8. In the lefthand navigation panel choose **Access Analyzer**.
+
+9. If you see a page outlining how IAM Access Analzyer works, IAM Access Analyzer is **not** enabled. 
+
+    ??? info  "Optional Step: Click here for instructions on how to manually enable and set up IAM Access Analyer."
+
+        1. From the <a href="https://console.aws.amazon.com/access-analyzer/home" target="_blank">IAM Access Analzer page</a>, click **Create analyzer**
+
+        2. In the "Create analyzer" screen leave the Name as it is.  For the "Zone of trust" choose **Current account**.  Click **Create analyzer** .
+
+        ###
 
 ## Deploy workshop CloudFormation stack
 
@@ -75,17 +83,22 @@ US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/hom
 
 2. On the **Specify Details** section enter the necessary parameters as shown below. 
 
-    | Parameter | Value  |
-    |---|---|
-    | Stack name | SecurityHubWkshp  |
-    | EnableGuardDuty | **Yes-Enable GuardDuty** or **No-GuardDuty is already enabled**  |
-    | EnableSecurityHub| **Yes-Enable Security Hub** or **No-Security Hub is already enabled**|
-    |EnableConfig| **Yes-Enable Config** or **No-Config is already enabled**|
+    | Parameter | Value  | Parameter Details|
+    |---|---|---|
+    | Stack name | **SecurityHubWkshp**  ||
+    | EnableGuardDuty | **Yes-Enable GuardDuty** or <br> **No-GuardDuty is already enabled**  ||
+    | EnableSecurityHub| **Yes-Enable Security Hub** or <br> **No-Security Hub is already enabled**||
+    |EnableConfig| **Yes-Enable Config** or <br> **No-Config is already enabled**||
+    |EnableIAMAA| **Yes-Enable IAM AA** or <br> **No-IAM AA is already enabled**||
+    |CreatePublicResourcePolicies| **Yes-Create public policies** or <br> **No-Dont create public policies**|Creates an SQS queue with a policy allowing public access for posting messages to the queue.|
 
     **Leave all other parameters with their default values**
 
-    
+
+!!! info "If set to Yes, the CreatePubicResourcePolicies parameter will result in the template creating AWS resources that have resource policies that grant public access to the resource.  Creation of these resources enables IAM Access Analyzer to detect and report findings for these resources.  Deployment of these resources is optional as some environments, outside of AWS event environments, may detect and report on this resource as a company policy violation.  See the parameter details for information on which public resources the parameter will create."
+
 3. Once you have entered your parameters click **Next**.
+
 4. Click **Next** again. \(leave everything on this page at the default\)
 
 5. Finally, scroll down and check the boxes to acknowledge that the template will create IAM resources and that the template will need CAPABILITY_AUTO_EXPAND.  Then click **Create**.
