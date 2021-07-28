@@ -147,6 +147,9 @@ Region| Deploy
 US West 2 (Oregon) | <a href="https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?stackName=SecurityHub-CISPlaybooks&templateURL=https://sa-security-specialist-workshops-us-west-2.s3-us-west-2.amazonaws.com/security-hub-workshop/templates/SecurityHub_CISPlaybooks_CloudFormation.yaml" target="_blank">![Deploy CIS remediation playbook in us-west-2](./images/deploy-to-aws.png)</a>|
 US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=SecurityHub-CISPlaybooks&templateURL=https://sa-security-specialist-workshops-us-east-1.s3.amazonaws.com/security-hub-workshop/templates/SecurityHub_CISPlaybooks_CloudFormation.yaml" target="_blank">![Deploy CIS remediation playbook in us-east1](./images/deploy-to-aws.png)</a>
 
+!!! info "If you are running this workshop in an AWS provided environment and it is not in one of the above regions you can still deploy the remediation template, via CloudFormation, in the region you are performing the workshop in.  For Step 1, click either of the Deploy to AWS buttons and when that takes you to the CloudFormation console you can change your region in the top right corner of the AWS console to your desired region.  Once you have created the stack with this template you can pick up this section at step 2 below."
+
+
 1. Click the **Deploy to AWS** button above, for the region you are performing the workshop in.  This will automatically take you to the console to submit the template.
 
 2. Scroll to the bottom of the **Quick create stack** screen and check the box for **I acknowledge that AWS CloudFormation might create IAM resources.**
