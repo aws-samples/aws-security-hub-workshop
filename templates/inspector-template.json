@@ -1,3 +1,4 @@
+{
 "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "Template that launches an EC2 instance and an inspector configuration that is targeted at that instance",
     "Mappings": {
