@@ -21,11 +21,13 @@ For this workshop there will be multiple pieces of infrastructure and AWS servic
 Multiple EC2 instances will be launched to facilitate the generation of findings from GuardDuty & Inspector.  Additionally these instances will be used to help with demonstration of integration of custom findings into Security Hub.
 
 Multiple AWS services will be configured in the workshop to help facilitate the generation of Security Hub findings.  These services include:
-* Security Hub
-* GuardDuty 
-* Secrets Manager
-* Inspector
-* Config
+
+* <a href="https://aws.amazon.com/security-hub/" target="_blank"> AWS Security Hub </a>
+* <a href="https://aws.amazon.com/guardduty/" target="_blank"> Amazon GuardDuty </a>
+* <a href="https://aws.amazon.com/secrets-manager/" target="_blank"> Amazon Secrets Manager</a>
+* <a href="https://aws.amazon.com/inspector/" target="_blank"> Amazon Inspector</a>
+* <a href="https://aws.amazon.com/config/" target="_blank"> AWS Config</a>
+* <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html" target="_blank"> AWS IAM Access Analyzer</a>
 
 
 ## Presentation deck
@@ -38,16 +40,16 @@ Please use **us-west-2 (Oregon)** or **us-east-1 (Virgina)** for this workshop.
 
 This workshop is broken up into setup and then four modules: 
 
-0. [Initial Environment Setup ](./00-environment-setup.md)
-1. [Security Hub Walk Through ](./01-security-hub-walk-through.md)
-2. [Custom Insights and Custom Findings](./02-custom-insights-findings.md) 
-3. [Remediation and Response Custom Action](./03-remediation-and-response.md) 
-4. [Enrichment and Integration](./04-enrichment-and-integration.md)
+Module 0 - [Environment build ](./00-environment-setup.md)  
+Module 1 -  [Security Hub Walkthrough ](./01-security-hub-walk-through.md)  
+Module 2 -  [Custom Insights & Findings](./02-custom-insights-findings.md)     
+Module 3 - [Remediation & Response](./03-remediation-and-response.md)   
+Module 4 - [Enrichment & Integration](./04-enrichment-and-integration.md)  
 
 
 
 ## Contributing
-Your contributions are always welcome! Please have a look at the [contribution guidelines](contribute.md) first. :tada:
+Your contributions are always welcome! Please have a look at the [contribution guidelines](contribute.md) first.
 
 [(Back to top)](#Overview)
 

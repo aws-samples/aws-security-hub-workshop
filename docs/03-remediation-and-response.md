@@ -10,7 +10,7 @@ After Security Hub has detected configuration that needs attention, the next ste
 
 ## Create a Security Hub Custom Action to Isolate an EC2 Instance 
 
-This guide will show you how to create a custom action in Security Hub and then tie that to an EventBridge rule which calls a Lambda function to change the security group on an EC2 instance that is part of a Security Hub finding. 
+This section will walk you through how to create a custom action in Security Hub which will trigger an EventBridge rule. In this scenario, the EventBridge rule will invoke a Lambda function to change the security group on an EC2 instance that is associated with a Security Hub finding.
 
 ### Create a Custom Action in Security Hub 
 
@@ -35,11 +35,8 @@ This guide will show you how to create a custom action in Security Hub and then 
     ![Custom Action](./images/03-custom-action-review.png)
 
 ### Create Amazon EventBridge Rule to capture the Custom Action 
+In this section, you will define an EventBridge rule that will match events (findings) coming from Security Hub which were forwarded by the custom action you defined above. 
 
-
- Events from AWS services are delivered to CloudWatch Events and Amazon EventBridge in near real time. You can write simple rules to indicate which events you're interested in and what automated actions to take when an event matches a rule. The actions that can be automatically triggered include: an AWS Lambda function, Amazon EC2 Run Command, Relaying the event to Amazon Kinesis Data Streams, an AWS Step Functions state machine, an Amazon SNS topic, a ECS task, and others.
-
-In this section, you will define an EventBridge rule that will match events (Findings) coming from Security Hub which were forwarded by the custom action you defined above. 
 
 1. Navigate to the **Amazon EventBridge** Console.
 
@@ -57,46 +54,25 @@ In this section, you will define an EventBridge rule that will match events (Fin
 
 5. Select **Pre-defined pattern by service**.
 
-6. In the drop down for **Service Provider**, select **AWS**.
+6. In the drop down for **Service Provider**, select **AWS** for the service provider.
 
 7. In the drop down for **Service Name**, select or type and select **Security Hub**. 
 
 8. In the drop down for **Event type** choose **Security Hub Finding – Custom Action**.
 
+9. Select the **Specific custom action ARN(s)** radio button.  Enter the ARN for the custom action that you created earlier. 
+
     ![Custom Action](./images/03-custom-create-event-source.png)
 
-9.	In the **Event Pattern** window click the **Edit** button. 
+    !!! info "Note that Event Bridge automatically updates the event pattern to include your custom action ARN as a resource."
 
-10.	Add in the resources line as shown below, making sure to paste in the ARN of **your Custom Event**.  Click **Save**. 
-
-    !!! info "Note the comma after the bracket before the resources definition."
-
-    Copy and paste in the custom event pattern below.  Use the ARN you recorded for your Security Hub Custom Action 
-    	
-    <pre>
-    ```
-    { 
-    "source": [ 
-        "aws.securityhub" 
-        ], 
-        "detail-type": [ 
-            "Security Hub Findings - Custom Action" 
-        ], 
-        "resources": [ 
-            "arn:aws:securityhub:[YOUR-REGION]:[YOUR-ACCOUNT-ID]:action/custom/IsolateInstance" 
-        ] 
-    } 
-    ```
-
-    ![Custom Action](./images/03-custom-create-event-source-updated.png)
-
-11. Under Select targets, ensure **Lambda function** is populated in the top drop down and then select **isolate-ec2-security-group** Lambda function. 
+10. Under Select targets, ensure **Lambda function** is populated in the top drop down and then select **isolate-ec2-security-group** Lambda function. 
 
     ![Custom Action](./images/03-custom-create-confirm.png)
 
     !!! info "**isolate-ec2-security-groups** is a custom Lambda function created during the setup of this workshop."
 
-12. Click **Create**.
+11. Click **Create** to complete creation of the Event Bridge rule.
 
 ### Isolate the security group on an EC2 Instance 
 
@@ -120,7 +96,7 @@ Now you will test the response action starting from a Security Finding for an EC
 
     ![Custom Action](./images/03-security-group.png)
 
-8.	Go back to your **Security Hub tab** in your browser and click in the check box in the far left of this same finding.
+8.	Go back to the Security Hub tab in your browser and click in the check box in the far left of this same finding.
 
 9. In the **Actions** drop down choose the name of your custom action to Isolate EC2 Instances. 
 
@@ -147,7 +123,7 @@ Region| Deploy
 US West 2 (Oregon) | <a href="https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/create/review?stackName=SecurityHub-CISPlaybooks&templateURL=https://sa-security-specialist-workshops-us-west-2.s3-us-west-2.amazonaws.com/security-hub-workshop/templates/SecurityHub_CISPlaybooks_CloudFormation.yaml" target="_blank">![Deploy CIS remediation playbook in us-west-2](./images/deploy-to-aws.png)</a>|
 US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/review?stackName=SecurityHub-CISPlaybooks&templateURL=https://sa-security-specialist-workshops-us-east-1.s3.amazonaws.com/security-hub-workshop/templates/SecurityHub_CISPlaybooks_CloudFormation.yaml" target="_blank">![Deploy CIS remediation playbook in us-east1](./images/deploy-to-aws.png)</a>
 
-!!! info "If you are running this workshop in an AWS provided environment and it is not in one of the above regions you can still deploy the remediation template, via CloudFormation, in the region you are performing the workshop in.  For Step 1, click either of the Deploy to AWS buttons and when that takes you to the CloudFormation console you can change your region in the top right corner of the AWS console to your desired region.  Once you have created the stack with this template you can pick up this section at step 2 below."
+!!! info "If you are running this workshop in an AWS provided environment and it is not in one of the above regions you can still deploy the remediation template, via CloudFormation, in the region you are performing the workshop in.  For Step 1, click either of the Deploy to AWS buttons above and when that takes you to the CloudFormation console you can change your region in the top right corner of the AWS console to your desired region.  While you will be associated with a new region the URL for the CloudFormation template will remain populated.  Once you have set your region you can proceed to step 2 to continue deployment."
 
 
 1. Click the **Deploy to AWS** button above, for the region you are performing the workshop in.  This will automatically take you to the console to submit the template.
@@ -174,7 +150,7 @@ US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/hom
 
 8. Under CIS AWS Foundations Benchmark v1.2.0 click **View results**.
 
-    ![remediation](./images/03-remediation-security-standards.png)
+    ![remediation](./images/01-standards-home.png)
 
 9. Type "**2.8**" in the Filter controls bar.
 
@@ -182,15 +158,13 @@ US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/hom
 
     !!! info "We recommend that you enable CMK key rotation. Rotating encryption keys helps reduce the potential impact of a compromised key because data encrypted with a new key can't be accessed with a previous key that might have been exposed."
 
-10. Click the title for "CIS 2.8 Ensure rotation for customer created CMKs is enabled"
+10. Click the title for **CIS 2.8 Ensure rotation for customer created CMKs is enabled**.
 
-    ![remediation](./images/03-remediation-cis28-check.png)
-
-11. Click the **check box** to select the finding.
+11. Click the **check box** to select the failed finding.
 
 12. Click the **Actions** drop down on the right side and select **CIS 2.8 RR**.
 
-    !!! info "This triggers the remediation Lambda function associated with resolving CIS 2.8.  Notice the list of available actions you have for CIS created from the template deployment."
+    !!! info "Notice the list of available actions you have for CIS which were created from the template deployment."
 
     ![remediation](./images/03-remediation-cis28-action.png)
 
@@ -198,16 +172,16 @@ US East 1 (Virgina) | <a href="https://console.aws.amazon.com/cloudformation/hom
 
     !!! info "After the green bar has confirmed the execution of the custom check, we need to manually initiate a re-evaluation in Config in order to resolve the finding in Security Hub."
 
-13. Click the three vertical dots to expand associated links to Config.
+13. Click the three vertical dots in the **Investigate** column to expand associated links to Config.
 
-14. Click the link for **Config Rule**.
+14. Click the link for **Config Rule** which will open a new tab showing the details for the config rule related to the CIS check.
 
     ![remediation](./images/03-remediation-cis28-rule.png)
 
 
-15. Click **Re-evaluate** at the top of the page.
+15. In the Config Rule screen click the **Actions** drop down and then choose **Re-evaluate**.  This will cause the config rule to re-run and publish updated details on compliant and noncompliant resources.
 
-16. Click the browser tab to return to the filtered findings for CIS 2.8 and refresh your browser. The findings should now have a status of PASSED.
+16. Click the Security Hub browser tab to return to the filtered findings for CIS 2.8 and refresh your browser. The findings should now have a status of PASSED.
 
     ![remediation](./images/03-remediation-cis28-passed.png)
 

@@ -1,5 +1,7 @@
 # Environment Setup
-This workshop's procedures use multiple Lambda functions, EC2 instances, and other AWS resources created via CloudFormation templates. In this module, you will ensure that the right security services are configured and then deploy the template to create the overall workshop resources.
+This workshop uses multiple Lambda functions, EC2 instances, and other AWS resources created via CloudFormation templates. In this module, you will ensure that the right security services are configured and then deploy the template to create the overall workshop resources.
+
+The below items cover deploying the workshop into a stand alone AWS account.  If you are performing this workshop as part of an AWS led event, and an account has been provided for you can proceed to Module 1.
 
 **Agenda**
  
@@ -10,7 +12,7 @@ This workshop's procedures use multiple Lambda functions, EC2 instances, and oth
 ## Determine if you have enabled Security Hub, Config, GuardDuty, and IAM Access Analyzer.
 Config, Security Hub, GuardDuty, and IAM Access Analyzer must be enabled in the account and region you are conducting this workshop in.  The CloudFormation template that sets up the workshop has the option to enable all of this for you.  If you choose for that to happen, and these services are already enabled, the template will fail.
 
-In order to correctly perform the next step, you must confirm the status of each of these services.  If you already know the status, such as a fresh account provided by AWS for this workshop, proceed to the [Deploy workshop CloudFormation stack](#deploy-workshop-cloudformation-stack) section.
+In order to correctly perform the next step, you must confirm the status of each of these services.  If you already know the status for each service, such as you are working in a fresh account provided by AWS for this workshop, proceed to the [Deploy workshop CloudFormation stack](#deploy-workshop-cloudformation-stack) section.
 
 ![AWS Console](./images/01-aws-console.png)
 

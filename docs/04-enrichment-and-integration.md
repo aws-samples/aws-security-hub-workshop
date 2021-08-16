@@ -36,9 +36,9 @@ If you want to create a new channel click on the + next to 'Channels' and create
 
 1. Go to your Slack API(https://api.slack.com).  
 
-2. Click **Start Building**.  
- 
-3. Click on **Create an App** button. 
+2. Click on **Create an App** button. 
+
+3.  In the **Create an app** popup choose **From scratch**
 
 4.  Fill in the following details for your app:  
     - **App Name**: security-hub-to-slack 
@@ -52,7 +52,7 @@ If you want to create a new channel click on the + next to 'Channels' and create
 
 7.  At the **Activate Incoming Webhooks** screen, move the slider from OFF to ON. 
 
-8. Scroll down and choose **Add New Webhook to Workspace**. 
+8. At the bottom of the screen choose **Add New Webhook to Workspace**. 
  
 9. In the screen asking where your app should post choose the channel that you created in an earlier step.
 
@@ -69,8 +69,6 @@ To send information on findings that are in Security Hub to Slack a custom actio
 
 2. Click on **Settings**. 
 
-    ![ChatOps](./images/04-chatops-sechub.png)
-
 3. Click **Custom Actions**.
 
     ![ChatOps](./images/04-chatops-sechub-settings.png)
@@ -78,13 +76,16 @@ To send information on findings that are in Security Hub to Slack a custom actio
 4. Select Create Custom Action. Fill in: 
     * **Action Name** as ‘Send to Slack’, 
     * **Description** as ‘Custom action to send security findings to Slack.’ 
-    * **Custom Action ID** as shslaction 
+    * **Custom Action ID** as sendtoslack 
 
-5. Click **Create custom action**.
-
+5. Click **Create custom action**.  
   ![ChatOps](./images/04-chatops-sechub-create.png)
 
 
+6. Copy the Custom action ARN that was generated for your custom finding as it will be needed in the next steps.  
+
+  ![ChatOps](./images/04-chatops-arn.png)
+  
 ### Create a EventBridge Rule for Security Hub Custom Actions to Lambda
 
 Taking action on a finding in Security Hub results in the information for the finding and the ARN of the custom action being sent to EventBridge. To successfully process this action, a EventBridge rule  needs to be defined so the action information can be sent to Slack. 
@@ -111,40 +112,19 @@ Taking action on a finding in Security Hub results in the information for the fi
 
 8. In the drop down for **Event type** choose **Security Hub Finding – Custom Action**.
 
+9. Select the **Specific custom action ARN(s)** radio button.  Enter the ARN for the custom action that you created earlier.
+
     ![ChatOps](./images/03-custom-create-event-source.png)
 
-9.	In the **Event Pattern** window click the **Edit** button. 
 
-10.	Add in the resources line as shown below, making sure to copy in the ARN of **your Custom Event**.  Click **Save**. 
 
-    !!! info "Note the comma after the bracket before the resources definition."
+10. Under Select targets, select **Lambda function**.
 
-    Copy and paste in the custom event pattern below.  Use the ARN you recorded for your Security Hub Custom Action 
-    
-    <pre>
-    ```
-    { 
-    "source": [ 
-        "aws.securityhub" 
-      ], 
-      "detail-type": [ 
-        "Security Hub Findings - Custom Action" 
-      ], 
-      "resources": [ 
-         "arn:aws:securityhub:us-east-1:[YOUR-ACCOUNT-ID]:action/custom/shslaction" 
-      ] 
-    } 
-    ```
-
-    ![ChatOps](./images/04-chatops-create-event-pattern-updated.png)
-
-11. Under Select targets, select **Lambda function**.
-
-12. Then select the **sechub-to-slack** lambda function. 
+11. Then select the **sechub-to-slack** lambda function. 
 
     ![Custom Action](./images/04-slack-lambda-create-confirm.png)
 
-13. Click **Create**.
+12. Click **Create** to complete creation of the Event Bridge rule.
 
 ### Update the Lambda Function to send messages to Slack 
 The last step in this setup is to update the environment variables of your lambda function so that notifications can be sent to the correct Slack workspace.
@@ -153,7 +133,7 @@ The last step in this setup is to update the environment variables of your lambd
 
 2. In the list of functions choose the **sechub-to-slack** function.
 
-3. Scroll down to environment variables and click **Edit**   Fill in:
+3. Click on the **Configuration** tab and then choose **Environment variables**.  Click the **Edit** button.  Fill in:
     * **slackChannel:** the value from the Slack channel you created earlier in this workshop.
     * **webHookUrl:** URL of the webhook for the Slack setup you created earlier in this workshop.
 
@@ -221,33 +201,11 @@ In this section you will follow the same pattern of creating a Security Hub cust
 
 8. In the drop down for **Event type** choose **Security Hub Finding – Custom Action**.
 
-9.	In the **Event Pattern** window click the **Edit** button. 
+9. Select the **Specific custom action ARN(s)** radio button.  Enter the ARN for the custom action that you created earlier.
 
-10.	Add in the resources line as shown below, making sure to copy in the ARN of **your Custom Event**.  Click **Save**. 
+10. Under Select targets, ensure **Lambda function** is populated in the top drop down and then select **enrich-sec-hub-finding** lambda function. 
 
-    !!! info "Note the comma after the bracket before the resources definition."
-
-    Copy and paste in the custom event pattern below.  Use the ARN you recorded for your Security Hub Custom Action 
-      
-    <pre>
-    ```
-    { 
-    "source": [ 
-        "aws.securityhub" 
-      ], 
-      "detail-type": [ 
-        "Security Hub Findings - Custom Action" 
-      ], 
-      "resources": [ 
-         "arn:aws:securityhub:us-east-1:[YOUR-ACCOUNT-ID]:action/custom/getTags" 
-      ] 
-    } 
-    ```
-    ![Enrich](./images/04-enrich-create-event-pattern-updated.png)
-
-11. Under Select targets, ensure **Lambda function** is populated in the top drop down and then select **enrich-sec-hub-finding** lambda function. 
-
-12. Click **Create**.
+11. Click **Create** to complete creation of the Event Bridge rule.
 
 ### Test your enrichment rule
 
@@ -257,7 +215,7 @@ In this section you will follow the same pattern of creating a Security Hub cust
 
 3.	Click in the search space to **Add filters**, and find **Resource Type**.
 
-4.	Add **AwsEc2Instance** (case sensitive) after EQUALS and click **Apply**.
+4.	Add **AwsEc2Instance** (case sensitive) after **is** and click **Apply**.
 
     ![Enrich](./images/04-enrich-sechub-filter.png)
 

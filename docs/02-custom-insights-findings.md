@@ -3,6 +3,7 @@
 A key feature of Security Hub is the ability to create security findings that are above and beyond the native integrations that Security Hub has with AWS services or 3rd party providers.  This custom findings feature gives customers the flexibility to build their security checks against their AWS environment and import them into Security Hub.
 
 In the environment for this workshop, multiple sources that are sending custom findings into Security Hub:
+
 * The open-source Cloud Custodian project running on an EC2 instance.
 * A Config Rule checking for non-compliant AMIs.
 * A Lambda function looking for non-compliant secrets.
@@ -30,7 +31,7 @@ This section creates the rule which will catch messages sent from Config rules a
 
 1. Navigate to the Amazon EventBridge Console.
 
-2. Click on the **Create rule** on the right side.
+2. Click on **Create rule** on the right side.
 
     ![Custom Action](./images/03-custom-eventbridge.png)
 
@@ -70,8 +71,6 @@ This section will run the Config rule to generate information on noncompliant re
 
 2. From the Config Dashboard click **Rules** on the left menu.
 
-    ![Config](./images/02-config-dashboard.png)
-
     !!! info "Make sure to not choose Rules from the Aggregated view menu.  This requires Config Aggregator and this feature is not used in this workshop."
 
 3. In the Rules page there will be one rule named **approved-amis-by-id**.  Click on the rule name to go to the detail page for that rule.  
@@ -80,13 +79,15 @@ This section will run the Config rule to generate information on noncompliant re
 
     ![Config](./images/02-approved-ami-config-rule.png)
 
-4. Click on the **Delete results** button.  In the confirmation popup click **Delete**.
+4. In the **Actions** drop down choose **Delete results**.  Enter **Delete** in the the confirmation box.
 
-5.  Click on the refresh button in the **Choose resources in scope** section.  The noncompliant resource section should now be empty.  
+5.  Click on the refresh button in the **Resources in scope** section.  The noncompliant resource section should now be empty.  
 
-6. Click the **Re-evaluate** button.  You will get a message that the Config rule is in use and that you need to refresh the page.  At this point you can either refresh the entire page in your browser or use the refresh button in the **Choose resources in scope** section of the page.
+6. In the **Actions** drop down choose **Re-evaluate**.  You will get a message that the Config rule is being reevaluated.  
 
-An instance should now be showing as noncompliant in the **Choose resources in scope** section.  This re-run of the Config rule will trigger the EventBridge rule that is looking for noncompliant resources, resulting in the finding showing in Security Hub.  
+7. To track progress of the rule re-evaluation you can either refresh the entire page in your browser or use the refresh button in the **Resources in scope** section of the page.  It may take a couple minutes and refreshes before the noncompliant resource re-appears in the **Resources in scope** section.
+
+An instance should now be showing as noncompliant in the **Resources in scope** section.  This re-run of the Config rule will trigger the EventBridge rule that is looking for noncompliant resources, resulting in the finding showing in Security Hub.  
 
 !!! info "Clearing results and re-evaluating the Config rule is being done to help force sending findings into Security Hub for this workshop.  Under normal circumstances you will not need manually run the Config rule in order to get findings to show in Security Hub.  Once you have the Config and EventBridge rules configured, new noncompliant resources will automatically flow into Security Hub as a Config rule finds noncompliant resources."  
 
@@ -96,13 +97,15 @@ An instance should now be showing as noncompliant in the **Choose resources in s
 
 2.	Click on the **Findings** option in the left-hand navigate menu. 
 
-3.	You should see a rule towards the top of the findings list with a **Company** of **Personal** and a **Title** about an unapproved AMI for an instance.  This is the result of your compliance rule and its integration with EventBridge.  Click on the **Title** link for the finding to view more details for your finding.
+3.	You should see a finding towards the top of the findings list with a **Company** of **Personal** and a **Title** about an unapproved AMI for an instance.  This finding is the result of your compliance rule and its integration with EventBridge.  Click on the **Title** link for the finding to view more details for your finding.
 
-    ![Config](./images/02-unapproved-ami-finding.png)
+!!! info "If the finding is not showing towards the top you can filter for the finding.  Click in the fiter bar and choose a filter of "Title", choose a filter match type of "starts with" and enter "Unapproved AMI" as the filter value."
+
+  ![Config](./images/02-unapproved-ami-finding.png)
 
 You now have a setup in place that helps demonstrate how you can send custom findings into Security Hub using AWS data sources and EventBridge rules.
 
-!!! info "In your environment the Lambda function **find-secrets-without-rotation** checks for secrets that have a rotation time that is beyond the max days parameter on the function.  When secrets are found with a rotation time beyond what is defined in the function a finding is created in Security Hub.  Take some time to explore the Lambda function to see how you can directly send custom findings into Security Hub." 
+!!! info "In your environment the Lambda function named "find-secrets-without-rotation" checks for secrets that have a rotation time that is beyond the max days parameter on the function.  When secrets are found with a rotation time beyond what is defined in the function a finding is created in Security Hub.  Take some time to explore the Lambda function to see how you can directly send custom findings into Security Hub." 
 
 ## Create Custom Insights for Custom Findings
 
@@ -120,28 +123,27 @@ For this lab the custom findings have been built to utilize the Generator ID fie
 
 3. Click **Create insight**.
 
-4. Click in the filter field at the top to add additional filters.
+4. Click in the filter field at the top to add additional filters.  Choose a filter field of **Company name**, a filter match type of **is**, and a value of **Personal**.
 
-5. Choose a filter field of **Company name**.  Choose a filter match type of **IS** and a value of **Personal**.
     ![Config](./images/02-create-custom-insight-company-filter.png)
 
-6. Choose a filter field of **Product name**.  Choose a filter match type of **IS** and a value of **Default**.
+5. Now add one more filter.  Choose a filter field of **Product name**, a filter match type of **is**, and a value of **Default**.
 
-7. Choose a Grouping of **Group by:**.  In the list of options choose **Generator ID**.  
+6. Choose a Grouping of **Group by:**.  In the list of options choose **Generator ID**.  
     ![Config](./images/02-create-custom-insight-grouping.png)
 
-8. Click on **Create insight** to save your custom insight.
+7. Click on **Create insight** to save your custom insight.
 
-9. Give your insight a name that is meaningful to you and click **Create insight**.
+8. Give your insight a name that is meaningful to you and click **Create insight**.
     ![Config](./images/02-create-custom-insight-name.png)
 
-10. **Refresh** your browser to reload the screen with Graphs.
+9. **Refresh** your browser to reload the screen with Graphs.
+
+![Config](./images/02-custom-insight-final.png)
 
 You now have a custom insight that allows you to get more visibility around custom findings that are coming into Security Hub, allowing you more visibility into what your security findings are related to, what the source of the findings are, and where you should prioritize your remediation efforts.   
 For the findings in this custom insight you can click on the resource ID links to drill into the specific findings related to those resources. 
  
 Feel free to play with the grouping for your insight to see other attributes that you can group by and the different views of data it creates.  
-
-![Config](./images/02-custom-insight-final.png)
 
 !!! info "It's ok if your list of findings is different."  
