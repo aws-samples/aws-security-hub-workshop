@@ -5,7 +5,7 @@ The below items cover deploying the workshop into a stand alone AWS account.  If
 
 **Agenda**
  
-1. Determine if have already enabled Security Hub, Config, GuardDuty, and IAM Access Analyzer - 5 min
+1. Determine if you have already enabled Security Hub, Config, GuardDuty, and IAM Access Analyzer - 5 min
 2. Deploy workshop CloudFormation stack  - 10 min
 
 
