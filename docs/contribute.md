@@ -1,3 +1,10 @@
+
+!!! fail "New Documentation Update"
+
+    PLEASE USE UPDATED DOCUMENTATION HERE:<br>
+    <a href="https://catalog.us-east-1.prod.workshops.aws/v2/workshops/adccbda9-ceaf-47a8-843b-cf231281b635/en-US/" target="_blank" rel="noopener noreferrer"> LINK TO UPDATED DOCUMENTATION </a>
+
+
 # Contributing Guidelines
 
 Thank you for your interest in contributing to our project. Whether it's a bug report, new feature, correction, or additional 

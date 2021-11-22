@@ -1,3 +1,10 @@
+
+!!! fail "New Documentation Update"
+
+    PLEASE USE UPDATED DOCUMENTATION HERE:<br>
+    <a href="https://catalog.us-east-1.prod.workshops.aws/v2/workshops/adccbda9-ceaf-47a8-843b-cf231281b635/en-US/" target="_blank" rel="noopener noreferrer"> LINK TO UPDATED DOCUMENTATION </a>
+
+
 # Module 3: Remediation and Response CIS Benchmark and Custom Action 
 
 After Security Hub has detected configuration that needs attention, the next step is take action and resolve the finding.  In the first half of this module, you will connect a Security Hub custom action to a provided Lambda function.  This function isolates an EC2 instance from the VPC network when invoked.  In the second half, you will deploy the auto remediation and response actions for the CIS AWS Foundations standard. 

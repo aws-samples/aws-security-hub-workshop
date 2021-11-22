@@ -1,3 +1,10 @@
+
+!!! fail "New Documentation Update"
+
+    PLEASE USE UPDATED DOCUMENTATION HERE:<br>
+    <a href="https://catalog.us-east-1.prod.workshops.aws/v2/workshops/adccbda9-ceaf-47a8-843b-cf231281b635/en-US/" target="_blank" rel="noopener noreferrer"> LINK TO UPDATED DOCUMENTATION </a>
+
+
 # Module 2: Custom Insights and Custom Findings
 
 A key feature of Security Hub is the ability to create security findings that are above and beyond the native integrations that Security Hub has with AWS services or 3rd party providers.  This custom findings feature gives customers the flexibility to build their security checks against their AWS environment and import them into Security Hub.

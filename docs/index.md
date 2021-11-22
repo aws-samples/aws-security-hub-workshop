@@ -1,3 +1,11 @@
+
+!!! fail "New Documentation Update"
+
+    PLEASE USE UPDATED DOCUMENTATION HERE:<br>
+    <a href="https://catalog.us-east-1.prod.workshops.aws/v2/workshops/adccbda9-ceaf-47a8-843b-cf231281b635/en-US/" target="_blank" rel="noopener noreferrer"> LINK TO UPDATED DOCUMENTATION </a>
+
+
+
 # Overview
 
 This workshop is designed to get you familiar with AWS Security Hub so that you can better understand how you would use it in your own AWS environment(s). This workshop is broken into two sections. The first section will guide you through a demonstration of the features and functions of Security Hub. The second section will show you how to use Security Hub to import findings from different data sources, analyze findings so you can prioritize response work, and implement responses to findings to help improve your security posture. 

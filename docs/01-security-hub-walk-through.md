@@ -1,3 +1,9 @@
+
+!!! fail "New Documentation Update"
+
+    PLEASE USE UPDATED DOCUMENTATION HERE:<br>
+    <a href="https://catalog.us-east-1.prod.workshops.aws/v2/workshops/adccbda9-ceaf-47a8-843b-cf231281b635/en-US/" target="_blank" rel="noopener noreferrer"> LINK TO UPDATED DOCUMENTATION </a>
+
 # Module 1: Security Hub Walkthrough 
 
 In this section of the Security Hub Workshop, you will follow a guided demonstration of the features of Security Hub.  You can use this demonstration to learn about Security Hub's capabilities.   

@@ -1,3 +1,10 @@
+
+!!! fail "New Documentation Update"
+
+    PLEASE USE UPDATED DOCUMENTATION HERE:<br>
+    <a href="https://catalog.us-east-1.prod.workshops.aws/v2/workshops/adccbda9-ceaf-47a8-843b-cf231281b635/en-US/" target="_blank" rel="noopener noreferrer"> LINK TO UPDATED DOCUMENTATION </a>
+
+
 # Module 4: Finding Enrichment and Integration
 
 In this module you will explore two patterns to respond to findings via a notification workflow.  In the first section, you will setup a custom action to post Security Hub findings into a Slack channel.  In the second section, you will use a custom action to look up and add EC2 tags to findings as a custom note.
