@@ -5,7 +5,7 @@ AWS Security Hub allows you to centrally view and manage security alerts and aut
 
 ## Start the workshop: 
 
-Visit the docs to get started:  <a href="http://security-hub-workshop.awssecworkshops.com/">Security Hub Workshop</a>. 
+Visit the docs to get started:  <a href="https://catalog.workshops.aws/security-hub/en-US">Security Hub Workshop</a>. 
 
 ## License Summary
 
