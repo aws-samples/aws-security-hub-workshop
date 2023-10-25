@@ -182,7 +182,7 @@
                 },
                	"Description": "Function that runs an inspector assessment",
                	"FunctionName": "inspector-run-assessment",
-               	"Runtime": "python3.7",
+               	"Runtime": "python3.10",
               	"Handler": "inspector-run-assessment.lambda_handler",
               	"Role": {
                         "Fn::GetAtt": [

@@ -376,7 +376,7 @@
                 },
                 "Description": "Function that swaps the security groups on an EC2 instance.",
                 "FunctionName": "isolate-ec2-security-group",
-                "Runtime": "python3.7",
+                "Runtime": "python3.10",
                 "Handler": "isolate-ec2-security-group.lambda_handler",
                 "Role": {
                     "Fn::GetAtt": [
@@ -596,7 +596,7 @@
                 },
                 "Description": "Function to raise SecHub findings for non-compliant AMIs",
                 "FunctionName": "ec2-non-compliant-ami-sechub",
-                "Runtime": "python3.7",
+                "Runtime": "python3.10",
                 "Handler": "ec2-non-compliant-ami-sechub.lambda_handler",
                 "Role": {
                     "Fn::GetAtt": [
@@ -1014,7 +1014,7 @@
                 },
                 "Description": "Enrich Finding with EC2 Instance Tags - Automating Security Workshop.",
                 "FunctionName": "enrich-sec-hub-finding",
-                "Runtime": "python3.7",
+                "Runtime": "python3.10",
                 "Handler": "enrich-sec-hub-finding.lambda_handler",
                 "Role": {
                     "Fn::GetAtt": [
