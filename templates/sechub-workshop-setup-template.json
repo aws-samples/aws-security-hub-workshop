@@ -441,7 +441,7 @@
                 },
                 "Description": "Function to take a finding from SecHub and send it to Slack",
                 "FunctionName": "sechub-to-slack",
-                "Runtime": "nodejs12.x",
+                "Runtime": "nodejs16.x",
                 "Handler": "sechub-to-slack.handler",
                 "Role": {
                     "Fn::GetAtt": [
